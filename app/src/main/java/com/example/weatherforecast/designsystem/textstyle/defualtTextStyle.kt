@@ -36,12 +36,12 @@ val defaultTextStyle = WeatherTextStyle(
         md = TextStyle(
             fontFamily = poppinsFontFamily,
             fontWeight = FontWeight.Medium,
-            fontSize = 18.sp
+            fontSize = 16.sp
         ),
         sm = TextStyle(
             fontFamily = poppinsFontFamily,
             fontWeight = FontWeight.Medium,
-            fontSize = 16.sp
+            fontSize = 14.sp
         )
     ),
     body = Body(
@@ -49,17 +49,17 @@ val defaultTextStyle = WeatherTextStyle(
             regular = TextStyle(
                 fontFamily = poppinsFontFamily,
                 fontWeight = FontWeight.Normal,
-                fontSize = 16.sp
+                fontSize = 18.sp
             ),
             medium = TextStyle(
                 fontFamily = poppinsFontFamily,
                 fontWeight = FontWeight.Medium,
-                fontSize = 16.sp
+                fontSize = 18.sp
             ),
             semiBold = TextStyle(
                 fontFamily = poppinsFontFamily,
                 fontWeight = FontWeight.SemiBold,
-                fontSize = 16.sp
+                fontSize = 18.sp
             )
         ),
         md = Weight(
@@ -67,19 +67,19 @@ val defaultTextStyle = WeatherTextStyle(
                 fontFamily = poppinsFontFamily,
                 fontWeight = FontWeight.Normal,
                 letterSpacing = 0.sp,
-                fontSize = 14.sp
+                fontSize = 16.sp
             ),
             medium = TextStyle(
                 fontFamily = poppinsFontFamily,
                 fontWeight = FontWeight.Medium,
                 letterSpacing = 0.sp,
-                fontSize = 14.sp
+                fontSize = 16.sp
             ),
             semiBold = TextStyle(
                 fontFamily = poppinsFontFamily,
                 fontWeight = FontWeight.SemiBold,
                 letterSpacing = 0.sp,
-                fontSize = 14.sp
+                fontSize = 16.sp
             )
         ),
         sm = Weight(
@@ -87,19 +87,19 @@ val defaultTextStyle = WeatherTextStyle(
                 fontFamily = poppinsFontFamily,
                 fontWeight = FontWeight.Normal,
                 letterSpacing = 0.sp,
-                fontSize = 12.sp
+                fontSize = 14.sp
             ),
             medium = TextStyle(
                 fontFamily = poppinsFontFamily,
                 fontWeight = FontWeight.Medium,
                 letterSpacing = 0.sp,
-                fontSize = 12.sp
+                fontSize = 14.sp
             ),
             semiBold = TextStyle(
                 fontFamily = poppinsFontFamily,
                 fontWeight = FontWeight.SemiBold,
                 letterSpacing = 0.sp,
-                fontSize = 12.sp
+                fontSize = 14.sp
             )
         )
     ),
@@ -109,19 +109,19 @@ val defaultTextStyle = WeatherTextStyle(
                 fontFamily = poppinsFontFamily,
                 fontWeight = FontWeight.Normal,
                 letterSpacing = 0.sp,
-                fontSize = 12.sp
+                fontSize = 16.sp
             ),
             medium = TextStyle(
                 fontFamily = poppinsFontFamily,
                 fontWeight = FontWeight.Medium,
                 letterSpacing = 0.sp,
-                fontSize = 12.sp
+                fontSize = 16.sp
             ),
             semiBold = TextStyle(
                 fontFamily = poppinsFontFamily,
                 fontWeight = FontWeight.SemiBold,
                 letterSpacing = 0.sp,
-                fontSize = 12.sp
+                fontSize = 16.sp
             )
         )
     )
