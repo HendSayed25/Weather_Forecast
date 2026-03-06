@@ -23,6 +23,10 @@ jobs:
           java-version: '21'
           cache: 'gradle'
 
+      - name: Create local.properties
+        run: | 
+             echo "sdk.dir=$ANDROID_HOME" > local.properties
+
       - name: Grant Permissions
         run: chmod +x gradlew
 
