@@ -24,28 +24,29 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.weatherforecast.R
 import com.example.weatherforecast.designsystem.theme.Theme
-import com.example.weatherforecast.presentation.home.model.CurrentWeather
-import com.example.weatherforecast.presentation.home.model.WeatherState
 import com.example.weatherforecast.presentation.home.composable.CurrentWeather
 import com.example.weatherforecast.presentation.home.composable.LocationDesign
 import com.example.weatherforecast.presentation.home.composable.Next5DaysForecastCard
 import com.example.weatherforecast.presentation.home.composable.WeatherForecastCard
 import com.example.weatherforecast.presentation.home.composable.WeatherStateContent
+import com.example.weatherforecast.presentation.home.model.CurrentWeather
 import com.example.weatherforecast.presentation.home.model.DailyForecastItem
 import com.example.weatherforecast.presentation.home.model.HourlyItem
-import com.example.weatherforecast.presentation.shared.UiState
+import com.example.weatherforecast.presentation.home.model.WeatherState
 import com.example.weatherforecast.presentation.home.utils.DateUtil
 import com.example.weatherforecast.presentation.home.utils.getWeatherStates
 import com.example.weatherforecast.presentation.shared.ErrorScreen
+import com.example.weatherforecast.presentation.shared.UiState
 
 
 @Composable
 fun HomeScreen(
-    viewModel: HomeViewModel,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    viewModel: HomeViewModel = hiltViewModel()
 ) {
     val locationState by viewModel.locationUiState.collectAsStateWithLifecycle()
     val weatherState by viewModel.weatherState.collectAsStateWithLifecycle()

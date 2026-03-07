@@ -10,9 +10,10 @@ import com.google.android.gms.location.LocationResult
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.location.Priority
 import kotlinx.coroutines.suspendCancellableCoroutine
+import javax.inject.Inject
 import kotlin.coroutines.resume
 
-class CoordinateRemoteDataSource {
+class CoordinateRemoteDataSource @Inject constructor() {
 
     @SuppressLint("MissingPermission")
     suspend fun getCurrentLocation(context: Context): Coordinate {

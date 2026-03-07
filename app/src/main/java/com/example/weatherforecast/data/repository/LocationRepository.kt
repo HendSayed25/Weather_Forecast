@@ -4,9 +4,10 @@ import android.content.Context
 import com.example.weatherforecast.data.remote.datasource.AddressRemoteDataSource
 import com.example.weatherforecast.data.remote.datasource.CoordinateRemoteDataSource
 import com.example.weatherforecast.data.remote.model.Location
+import javax.inject.Inject
 
 
-class LocationRepository(
+class LocationRepository @Inject constructor(
     private val coordinateDataSource: CoordinateRemoteDataSource,
     private val addressRemoteDataSource: AddressRemoteDataSource
 ) {

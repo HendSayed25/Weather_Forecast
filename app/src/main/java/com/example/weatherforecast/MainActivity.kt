@@ -12,17 +12,13 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
-import androidx.lifecycle.viewmodel.compose.viewModel
-import com.example.weatherforecast.data.remote.datasource.AddressRemoteDataSource
-import com.example.weatherforecast.data.remote.datasource.CoordinateRemoteDataSource
-import com.example.weatherforecast.data.remote.datasource.WeatherRemoteDataSource
-import com.example.weatherforecast.data.repository.LocationRepository
-import com.example.weatherforecast.data.repository.WeatherRepository
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.weatherforecast.designsystem.theme.WeatherForecastTheme
 import com.example.weatherforecast.presentation.home.HomeScreen
-import com.example.weatherforecast.presentation.home.HomeViewFactory
 import com.example.weatherforecast.presentation.home.HomeViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
 
 
@@ -33,11 +29,8 @@ class MainActivity : ComponentActivity() {
             WeatherForecastTheme {
 
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    val factory = HomeViewFactory(application, LocationRepository(
-                        CoordinateRemoteDataSource(),AddressRemoteDataSource()),
-                        WeatherRepository(WeatherRemoteDataSource()))
 
-                    val view = viewModel<HomeViewModel>(factory = factory)
+                    val homeViewModel  : HomeViewModel= hiltViewModel()
 
                     val permissionLauncher =
                         rememberLauncherForActivityResult(
@@ -49,7 +42,7 @@ class MainActivity : ComponentActivity() {
                                         result[Manifest.permission.ACCESS_COARSE_LOCATION] == true
 
                             if(granted){
-                                view.getCurrentLocation()
+                                homeViewModel.getCurrentLocation()
                             }
                         }
 
@@ -63,7 +56,7 @@ class MainActivity : ComponentActivity() {
                     }
 
                     HomeScreen(
-                        viewModel = view,
+                        viewModel = homeViewModel,
                         modifier = Modifier.padding(innerPadding)
                     )
                 }
