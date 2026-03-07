@@ -3,8 +3,9 @@ package com.example.weatherforecast.data.remote.datasource
 import android.content.Context
 import android.location.Geocoder
 import com.example.weatherforecast.data.remote.model.Coordinate
+import javax.inject.Inject
 
-class AddressRemoteDataSource {
+class AddressRemoteDataSource  @Inject constructor() {
 
     fun getCityName(coordinate : Coordinate, context: Context): String {
         val geocoder = Geocoder(context)

@@ -5,8 +5,9 @@ import com.example.weatherforecast.BuildConfig
 import com.example.weatherforecast.data.remote.network.WeatherApiClient
 import com.example.weatherforecast.data.remote.response.ForecastResponse
 import com.example.weatherforecast.data.remote.response.WeatherResponse
+import javax.inject.Inject
 
-class WeatherRemoteDataSource {
+class WeatherRemoteDataSource @Inject constructor() {
 
     private val weatherService = WeatherApiClient.weatherService
 

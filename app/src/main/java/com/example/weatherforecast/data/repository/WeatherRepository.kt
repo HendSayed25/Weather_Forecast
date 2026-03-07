@@ -3,9 +3,10 @@ package com.example.weatherforecast.data.repository
 import com.example.weatherforecast.data.remote.datasource.WeatherRemoteDataSource
 import com.example.weatherforecast.data.remote.response.ForecastResponse
 import com.example.weatherforecast.data.remote.response.WeatherResponse
+import javax.inject.Inject
 
 
-class WeatherRepository(
+class WeatherRepository @Inject constructor(
     private val weatherRemoteDataSource: WeatherRemoteDataSource
 ) {
     suspend fun getCurrentWeather(lat: Double, long: Double): Result<WeatherResponse> {
