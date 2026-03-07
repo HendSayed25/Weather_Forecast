@@ -1,92 +1,94 @@
 package com.example.weatherforecast.data.remote.response
 
 import com.google.gson.annotations.SerializedName
-import kotlinx.serialization.*
 
-@Serializable
-data class WeatherResponse (
+data class WeatherResponse(
+    @SerializedName("coord")
     val coord: Coord,
+    @SerializedName("weather")
     val weather: List<Weather>,
+    @SerializedName("base")
     val base: String,
+    @SerializedName("main")
     val main: Main,
-    val visibility: Long,
+    @SerializedName("visibility")
+    val visibility: Int,
+    @SerializedName("wind")
     val wind: Wind,
+    @SerializedName("clouds")
     val clouds: Clouds,
+    @SerializedName("dt")
     val dt: Long,
+    @SerializedName("sys")
     val sys: Sys,
-    val timezone: Long,
-    val id: Long,
+    @SerializedName("timezone")
+    val timezone: Int,
+    @SerializedName("id")
+    val id: Int,
+    @SerializedName("name")
     val name: String,
-    val cod: Long
-)
-
-data class Clouds(
-
-    @SerializedName("all")
-    val all: Int? = null
+    @SerializedName("cod")
+    val cod: Int
 )
 
 data class Coord(
-
-    @SerializedName("lat")
-    val lat: Double? = null,
-
     @SerializedName("lon")
-    val lon: Double? = null
+    val lon: Double,
+    @SerializedName("lat")
+    val lat: Double
+)
+
+data class Weather(
+    @SerializedName("id")
+    val id: Int,
+    @SerializedName("main")
+    val main: String,
+    @SerializedName("description")
+    val description: String,
+    @SerializedName("icon")
+    val icon: String
 )
 
 data class Main(
     @SerializedName("temp")
-    val temp: Double? = null,
-
+    val temp: Double,
     @SerializedName("feels_like")
-    val feelsLike: Double? = null,
-
+    val feelsLike: Double,
     @SerializedName("temp_min")
-    val tempMin: Double? = null,
-
+    val tempMin: Double,
     @SerializedName("temp_max")
-    val tempMax: Double? = null,
-
+    val tempMax: Double,
     @SerializedName("pressure")
-    val pressure: Long? = null,
-
+    val pressure: Int,
     @SerializedName("humidity")
-    val humidity: Long? = null,
-
+    val humidity: Int,
     @SerializedName("sea_level")
-    val seaLevel: Long? = null,
-
+    val seaLevel: Int,
     @SerializedName("grnd_level")
-    val grndLevel: Long? = null
+    val grndLevel: Int
 )
 
-@Serializable
-data class Sys (
-    val type: Long,
-    val id: Long,
-    val country: String,
-    val sunrise: Long,
-    val sunset: Long
-)
-
-data class Weather(
-
-    @SerializedName("id")
-    val id: Int? = null,
-
-    @SerializedName("main")
-    val main: String? = null,
-
-    @SerializedName("description")
-    val description: String? = null,
-
-    @SerializedName("icon")
-    val icon: String? = null
-)
-
-@Serializable
-data class Wind (
+data class Wind(
+    @SerializedName("speed")
     val speed: Double,
-    val deg: Long
+    @SerializedName("deg")
+    val deg: Int
+)
+
+data class Clouds(
+    @SerializedName("all")
+    val all: Int
+)
+
+data class Sys(
+    @SerializedName("type")
+    val type: Int,
+    @SerializedName("id")
+    val id: Int,
+    @SerializedName("country")
+    val country: String,
+    @SerializedName("sunrise")
+    val sunrise: Long,
+    @SerializedName("sunset")
+    val sunset: Long
 )
