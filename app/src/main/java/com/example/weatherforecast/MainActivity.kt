@@ -11,16 +11,17 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.weatherforecast.designsystem.theme.WeatherForecastTheme
-import com.example.weatherforecast.presentation.home.HomeScreen
-import com.example.weatherforecast.presentation.home.HomeViewModel
+import com.example.weatherforecast.presentation.navigation.NavGraph
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,23 +31,18 @@ class MainActivity : ComponentActivity() {
 
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
 
-                    val homeViewModel  : HomeViewModel= hiltViewModel()
+                    var locationGranted by remember { mutableStateOf(false) }
 
                     val permissionLauncher =
                         rememberLauncherForActivityResult(
                             ActivityResultContracts.RequestMultiplePermissions()
                         ) { result ->
-
-                            val granted =
+                            locationGranted =
                                 result[Manifest.permission.ACCESS_FINE_LOCATION] == true ||
                                         result[Manifest.permission.ACCESS_COARSE_LOCATION] == true
-
-                            if(granted){
-                                homeViewModel.getCurrentLocation()
-                            }
                         }
 
-                    LaunchedEffect(Unit){
+                    LaunchedEffect(Unit) {
                         permissionLauncher.launch(
                             arrayOf(
                                 Manifest.permission.ACCESS_FINE_LOCATION,
@@ -55,9 +51,9 @@ class MainActivity : ComponentActivity() {
                         )
                     }
 
-                    HomeScreen(
-                        viewModel = homeViewModel,
-                        modifier = Modifier.padding(innerPadding)
+                    NavGraph(
+                        modifier = Modifier.padding(innerPadding),
+                        locationGranted = locationGranted
                     )
                 }
             }

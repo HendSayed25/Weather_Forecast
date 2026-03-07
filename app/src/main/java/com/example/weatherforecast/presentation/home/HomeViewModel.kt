@@ -1,6 +1,7 @@
 package com.example.weatherforecast.presentation.home
 
 import android.app.Application
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.weatherforecast.data.remote.model.Location
