@@ -40,7 +40,6 @@ class HomeViewModel @Inject constructor(
             locationRepository.getCurrentLocation(context)
                 .onSuccess {
                     _locationUiState.value = UiState.Success(it)
-                    Log.d("Location","${it.lat }+ ${it.long}")
                     getCurrentWeather()
                 }
                 .onFailure { errorState("Failed to get Your Location , Try Again") }
