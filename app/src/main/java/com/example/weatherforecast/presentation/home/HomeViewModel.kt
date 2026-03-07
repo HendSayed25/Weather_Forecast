@@ -1,6 +1,7 @@
 package com.example.weatherforecast.presentation.home
 
 import android.app.Application
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.weatherforecast.data.remote.model.Location
@@ -39,6 +40,7 @@ class HomeViewModel @Inject constructor(
             locationRepository.getCurrentLocation(context)
                 .onSuccess {
                     _locationUiState.value = UiState.Success(it)
+                    Log.d("Location","${it.lat }+ ${it.long}")
                     getCurrentWeather()
                 }
                 .onFailure { errorState("Failed to get Your Location , Try Again") }

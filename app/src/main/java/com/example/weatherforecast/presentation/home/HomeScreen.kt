@@ -16,6 +16,7 @@ import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -45,45 +46,52 @@ import com.example.weatherforecast.presentation.shared.UiState
 
 @Composable
 fun HomeScreen(
+    locationGranted : Boolean,
     modifier: Modifier = Modifier,
     viewModel: HomeViewModel = hiltViewModel()
 ) {
     val locationState by viewModel.locationUiState.collectAsStateWithLifecycle()
     val weatherState by viewModel.weatherState.collectAsStateWithLifecycle()
 
-    when (val location = locationState) {
-        is UiState.Success -> {
-            val weather = weatherState
-            if (weather is HomeUiState.Success) {
-                val states = getWeatherStates(
-                    weatherStates = weather.weather,
-                )
-
-                HomeScreenContent(
-                    cityName = location.data.cityName,
-                    currentWeather = weather.currentWeather,
-                    weatherStates = states,
-                    dailyForecastItems = weather.dailyForecastItems,
-                    hourlyItems = weather.hourlyItems,
-                    date = DateUtil.getCurrentFormattedDate(),
-                    isDay = 1,
-                    modifier = modifier
-                )
-            }
+    LaunchedEffect(locationGranted) {
+        if (locationGranted) {
+            viewModel.getCurrentLocation()
         }
+    }
 
-        is UiState.Loading -> {
+    when (val weather = weatherState) {
+        is HomeUiState.Loading -> {
             Box(modifier = Modifier.fillMaxSize()) {
-                CircularProgressIndicator(modifier = Modifier
-                    .align(Alignment.Center)
-                    .size(24.dp))
+                CircularProgressIndicator(
+                    modifier = Modifier
+                        .align(Alignment.Center)
+                        .size(24.dp)
+                )
             }
         }
 
-        is UiState.Error -> {
-            ErrorScreen(location.msg) {
+        is HomeUiState.Error -> {
+            ErrorScreen(weather.msg) {
                 viewModel.getCurrentLocation()
             }
+        }
+
+        is HomeUiState.Success -> {
+            val location = locationState
+            val cityName = if (location is UiState.Success) location.data.cityName else ""
+
+            val states = getWeatherStates(weatherStates = weather.weather)
+
+            HomeScreenContent(
+                cityName = cityName,
+                currentWeather = weather.currentWeather,
+                weatherStates = states,
+                dailyForecastItems = weather.dailyForecastItems,
+                hourlyItems = weather.hourlyItems,
+                date = DateUtil.getCurrentFormattedDate(),
+                isDay = 1,
+                modifier = modifier
+            )
         }
     }
 }
