@@ -6,6 +6,7 @@ plugins {
     alias(libs.plugins.ksp)
     id("com.google.dagger.hilt.android")
     alias(libs.plugins.kotlin.android)
+    id ("org.jetbrains.kotlin.plugin.serialization") version "2.0.21"
 }
 
 android {
@@ -66,12 +67,18 @@ dependencies {
     implementation(libs.retrofit)
     implementation(libs.converter.gson)
 
+    //location
     implementation(libs.play.services.location)
 
+    //view model
     implementation(libs.lifecycle.viewmodel.compose)
     implementation(libs.lifecycle.viewmodel.ktx)
 
     implementation(libs.coil.compose)
+
+    // navigation
+    implementation(libs.androidx.navigation.compose)
+    implementation(libs.kotlinx.serlization)
 
     //di
     implementation(libs.hilt.android)
