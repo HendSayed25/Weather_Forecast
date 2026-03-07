@@ -24,6 +24,7 @@ class CoordinateRemoteDataSource @Inject constructor() {
 
             val request = LocationRequest.Builder(3000)
                 .setPriority(Priority.PRIORITY_HIGH_ACCURACY)
+                .setMaxUpdates(1)
                 .build()
 
             val callback = object : LocationCallback() {
