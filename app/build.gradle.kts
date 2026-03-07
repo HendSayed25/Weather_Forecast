@@ -3,14 +3,14 @@ import java.util.Properties
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.compose)
+    alias(libs.plugins.ksp)
+    id("com.google.dagger.hilt.android")
+    alias(libs.plugins.kotlin.android)
 }
 
 android {
     namespace = "com.example.weatherforecast"
-    compileSdk {
-        version = release(36)
-    }
-
+    compileSdkVersion(36)
     defaultConfig {
         applicationId = "com.example.weatherforecast"
         minSdk = 24
@@ -47,6 +47,9 @@ android {
         compose = true
         buildConfig = true
     }
+    kotlinOptions {
+        jvmTarget = "11"
+    }
 }
 
 dependencies {
@@ -69,6 +72,11 @@ dependencies {
     implementation(libs.lifecycle.viewmodel.ktx)
 
     implementation(libs.coil.compose)
+
+    //di
+    implementation(libs.hilt.android)
+    ksp(libs.hilt.android.compiler)
+    implementation(libs.hilt.navigation.compose)
 
 
 
