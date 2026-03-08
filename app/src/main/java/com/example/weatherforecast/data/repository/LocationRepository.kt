@@ -1,6 +1,5 @@
 package com.example.weatherforecast.data.repository
 
-import android.content.Context
 import com.example.weatherforecast.data.remote.datasource.AddressRemoteDataSource
 import com.example.weatherforecast.data.remote.datasource.CoordinateRemoteDataSource
 import com.example.weatherforecast.data.remote.model.Location
@@ -11,17 +10,18 @@ class LocationRepository @Inject constructor(
     private val coordinateDataSource: CoordinateRemoteDataSource,
     private val addressRemoteDataSource: AddressRemoteDataSource
 ) {
-    suspend fun getCurrentLocation(context: Context): Result<Location> {
+    suspend fun getCurrentLocation(): Result<Location> {
 
         return try {
-            val coordinate = coordinateDataSource.getCurrentLocation(context)
-            val cityName = addressRemoteDataSource.getCityName(coordinate, context)
+            val coordinate = coordinateDataSource.getCurrentLocation()
+            val address = addressRemoteDataSource.getLocationAddress(coordinate)
 
             Result.success(
                 Location(
                     lat = coordinate.lat,
                     long = coordinate.long,
-                    cityName = cityName
+                    cityName = address.cityName,
+                    countryName = address.countryName
                 )
             )
 
