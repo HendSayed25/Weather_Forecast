@@ -1,6 +1,5 @@
 package com.example.weatherforecast.presentation.home.composable
 
-import android.util.Log
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -29,8 +28,8 @@ fun Next5DaysForecastCard(
             .fillMaxWidth()
             .padding(16.dp),
         shape = RoundedCornerShape(20.dp),
-        colors = CardDefaults.cardColors(containerColor = Theme.color.background.screen),
-        border = BorderStroke(width = 1.dp, color = MaterialTheme.colorScheme.onBackground),
+        colors = CardDefaults.cardColors(containerColor = Theme.color.background.card),
+        border = BorderStroke(width = 0.5.dp, color = MaterialTheme.colorScheme.onBackground),
     ) {
 
         Column(modifier = Modifier.fillMaxWidth()) {

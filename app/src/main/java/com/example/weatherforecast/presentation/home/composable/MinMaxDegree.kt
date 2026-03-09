@@ -30,7 +30,7 @@ fun MinMaxDegree(
     modifier: Modifier = Modifier,
     showBackGround: Boolean = true
 ) {
-    val backgroundColor = if (showBackGround) Theme.color.background.screen else Color(0x00000000)
+    val backgroundColor = if (showBackGround) Theme.color.background.card else Color(0x00000000)
 
     Box(
         modifier

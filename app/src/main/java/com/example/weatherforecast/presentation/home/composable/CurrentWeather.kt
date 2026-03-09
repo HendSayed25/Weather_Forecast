@@ -36,6 +36,7 @@ fun CurrentWeather(
                 .size(width = 227.dp, height = 200.dp)
         )
         Spacer(modifier = Modifier.height(16.dp))
+
         WeatherDetails(
             currentWeather = currentWeather,
             isDay = isDay,
@@ -72,7 +73,7 @@ private fun WeatherDetails(
     }
 }
 
-@Preview(showBackground = true)
+@Preview
 @Composable
 private fun CurrentWeatherPreview() {
     fun getFakeCurrentWeather(): CurrentWeather {

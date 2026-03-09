@@ -20,7 +20,6 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.res.painterResource
@@ -36,7 +35,6 @@ fun WeatherForecastCard(
     temperature: Int,
     time: String,
     modifier: Modifier = Modifier,
-    backgroundColor: Brush = Theme.color.background.morningCard
 ) {
     Box(
         modifier = Modifier
@@ -51,12 +49,12 @@ fun WeatherForecastCard(
                 .offset(y = 30.dp),
             shape = RoundedCornerShape(20.dp),
             colors = CardDefaults.cardColors(containerColor = Color.Transparent),
-            border = BorderStroke(width = 1.dp, color = MaterialTheme.colorScheme.onBackground),
+            border = BorderStroke(width = 0.5.dp, color = MaterialTheme.colorScheme.onBackground),
         ) {
             Column(
                 modifier = Modifier
                     .fillMaxSize()
-                    .background(backgroundColor)
+                    .background(Theme.color.background.card)
                     .padding(vertical = 12.dp),
                 horizontalAlignment = Alignment.CenterHorizontally,
             ) {
@@ -64,7 +62,7 @@ fun WeatherForecastCard(
 
                 Text(
                     text = "${temperature}°C",
-                    style = Theme.textStyle.label.md.semiBold,
+                    style = Theme.textStyle.title.md,
                     color = Theme.color.text.primary,
                     modifier = Modifier.padding(bottom = 2.dp)
                 )

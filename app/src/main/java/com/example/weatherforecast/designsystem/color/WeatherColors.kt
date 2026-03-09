@@ -11,8 +11,7 @@ data class WeatherColors(
 
 data class Background(
     val screen: Color,
-    val morningCard: Brush,
-    val nightCard : Brush
+    val card: Color
 )
 
 data class TextColor(
@@ -21,4 +20,4 @@ data class TextColor(
     val tertiary: Brush,
 )
 
-internal val LocalCineVerseColors = staticCompositionLocalOf { lightThemeColor }
+internal val LocalWeatherColors = staticCompositionLocalOf { lightThemeColor }
