@@ -6,4 +6,6 @@ import kotlinx.serialization.Serializable
 sealed interface Route {
     @Serializable
     object HomeRoute : Route
+    @Serializable
+    object MapScreen : Route
 }

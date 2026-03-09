@@ -2,6 +2,8 @@ package com.example.weatherforecast.data.repository
 
 import com.example.weatherforecast.data.remote.datasource.AddressRemoteDataSource
 import com.example.weatherforecast.data.remote.datasource.CoordinateRemoteDataSource
+import com.example.weatherforecast.data.remote.model.Address
+import com.example.weatherforecast.data.remote.model.Coordinate
 import com.example.weatherforecast.data.remote.model.Location
 import javax.inject.Inject
 
@@ -25,6 +27,14 @@ class LocationRepository @Inject constructor(
                 )
             )
 
+        } catch (e: Exception) {
+            Result.failure(e)
+        }
+    }
+    suspend fun getLocationDetails(lat: Double, long: Double): Result<Address> {
+        return try {
+            val address = addressRemoteDataSource.getLocationAddress(Coordinate(lat, long))
+            Result.success(address)
         } catch (e: Exception) {
             Result.failure(e)
         }

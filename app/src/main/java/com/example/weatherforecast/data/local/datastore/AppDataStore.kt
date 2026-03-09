@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.datastore.preferences.core.PreferenceDataStoreFactory
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.preferencesDataStoreFile
+import com.example.weatherforecast.data.remote.model.Coordinate
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
@@ -22,8 +23,13 @@ class AppDataStore @Inject constructor(
         dataStore.edit { it[AppPreferences.LANGUAGE_KEY] = language }
     }
 
-    val locationLat: Flow<Double> = dataStore.data.map { it[AppPreferences.LOCATION_LAT_KEY] ?: 0.0 }
-    val locationLng: Flow<Double> = dataStore.data.map { it[AppPreferences.LOCATION_LNG_KEY] ?: 0.0 }
+    val location: Flow<Coordinate> = dataStore.data
+        .map { prefs ->
+            Coordinate(
+                lat = prefs[AppPreferences.LOCATION_LAT_KEY] ?: 21.422525,
+                long = prefs[AppPreferences.LOCATION_LNG_KEY] ?: 39.826181
+            )
+        }
 
     suspend fun setLocation(lat: Double, lng: Double) {
         dataStore.edit {
