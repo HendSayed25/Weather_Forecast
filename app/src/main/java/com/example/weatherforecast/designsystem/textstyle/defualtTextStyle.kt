@@ -6,12 +6,13 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
 import com.example.weatherforecast.R
+import retrofit2.http.Body
 
 internal val poppinsFontFamily = FontFamily(
+    Font(R.font.poppins_bold, FontWeight.Bold),
     Font(R.font.poppins_regular, FontWeight.Normal),
     Font(R.font.poppins_medium, FontWeight.Medium),
-    Font(R.font.poppins_semibold, FontWeight.SemiBold),
-    Font(R.font.poppins_bold, FontWeight.Bold)
+    Font(R.font.poppins_semibold, FontWeight.SemiBold)
 )
 
 val defaultTextStyle = WeatherTextStyle(
@@ -25,12 +26,12 @@ val defaultTextStyle = WeatherTextStyle(
     title = Title(
         xl = TextStyle(
             fontFamily = poppinsFontFamily,
-            fontWeight = FontWeight.Medium,
-            fontSize = 24.sp
+            fontWeight = FontWeight.Bold,
+            fontSize = 28.sp
         ),
         lg = TextStyle(
             fontFamily = poppinsFontFamily,
-            fontWeight = FontWeight.Medium,
+            fontWeight = FontWeight.SemiBold,
             fontSize = 20.sp
         ),
         md = TextStyle(
@@ -42,87 +43,6 @@ val defaultTextStyle = WeatherTextStyle(
             fontFamily = poppinsFontFamily,
             fontWeight = FontWeight.Medium,
             fontSize = 14.sp
-        )
-    ),
-    body = Body(
-        lg = Weight(
-            regular = TextStyle(
-                fontFamily = poppinsFontFamily,
-                fontWeight = FontWeight.Normal,
-                fontSize = 18.sp
-            ),
-            medium = TextStyle(
-                fontFamily = poppinsFontFamily,
-                fontWeight = FontWeight.Medium,
-                fontSize = 18.sp
-            ),
-            semiBold = TextStyle(
-                fontFamily = poppinsFontFamily,
-                fontWeight = FontWeight.SemiBold,
-                fontSize = 18.sp
-            )
-        ),
-        md = Weight(
-            regular = TextStyle(
-                fontFamily = poppinsFontFamily,
-                fontWeight = FontWeight.Normal,
-                letterSpacing = 0.sp,
-                fontSize = 16.sp
-            ),
-            medium = TextStyle(
-                fontFamily = poppinsFontFamily,
-                fontWeight = FontWeight.Medium,
-                letterSpacing = 0.sp,
-                fontSize = 16.sp
-            ),
-            semiBold = TextStyle(
-                fontFamily = poppinsFontFamily,
-                fontWeight = FontWeight.SemiBold,
-                letterSpacing = 0.sp,
-                fontSize = 16.sp
-            )
-        ),
-        sm = Weight(
-            regular = TextStyle(
-                fontFamily = poppinsFontFamily,
-                fontWeight = FontWeight.Normal,
-                letterSpacing = 0.sp,
-                fontSize = 14.sp
-            ),
-            medium = TextStyle(
-                fontFamily = poppinsFontFamily,
-                fontWeight = FontWeight.Medium,
-                letterSpacing = 0.sp,
-                fontSize = 14.sp
-            ),
-            semiBold = TextStyle(
-                fontFamily = poppinsFontFamily,
-                fontWeight = FontWeight.SemiBold,
-                letterSpacing = 0.sp,
-                fontSize = 14.sp
-            )
-        )
-    ),
-    label = Label(
-        md = Weight(
-            regular = TextStyle(
-                fontFamily = poppinsFontFamily,
-                fontWeight = FontWeight.Normal,
-                letterSpacing = 0.sp,
-                fontSize = 16.sp
-            ),
-            medium = TextStyle(
-                fontFamily = poppinsFontFamily,
-                fontWeight = FontWeight.Medium,
-                letterSpacing = 0.sp,
-                fontSize = 16.sp
-            ),
-            semiBold = TextStyle(
-                fontFamily = poppinsFontFamily,
-                fontWeight = FontWeight.SemiBold,
-                letterSpacing = 0.sp,
-                fontSize = 16.sp
-            )
         )
     )
 )

@@ -3,12 +3,11 @@ package com.example.weatherforecast.designsystem.textstyle
 
 import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.compose.ui.text.TextStyle
+import retrofit2.http.Body
 
 data class WeatherTextStyle(
     val display: Display,
     val title: Title,
-    val body: Body,
-    val label: Label
 )
 
 data class Display(
@@ -22,20 +21,4 @@ data class Title(
     val sm: TextStyle
 )
 
-data class Body(
-    val lg: Weight,
-    val md: Weight,
-    val sm: Weight
-)
-
-data class Label(
-    val md: Weight
-)
-
-data class Weight(
-    val regular: TextStyle,
-    val medium: TextStyle,
-    val semiBold: TextStyle
-)
-
-internal val LocalCineVerseTextStyle = staticCompositionLocalOf { defaultTextStyle }
+internal val LocalWeatherTextStyle = staticCompositionLocalOf { defaultTextStyle }

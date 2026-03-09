@@ -1,11 +1,17 @@
 package com.example.weatherforecast.presentation.home.composable
 
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -25,16 +31,15 @@ fun WeatherStateCard(
     weatherStateData: WeatherState,
 ) {
 
-    Box(
-        modifier = modifier.background(
-            Theme.color.background.screen,
-            shape = RoundedCornerShape(24.dp)
-        ),
-        contentAlignment = Alignment.TopCenter
+    Card(
+        modifier = modifier,
+        colors = CardDefaults.cardColors(containerColor = Theme.color.background.card),
+        border = BorderStroke(width = 0.5.dp, color = MaterialTheme.colorScheme.onBackground)
     ) {
         Column(
-            modifier = Modifier.padding(16.dp),
-            horizontalAlignment = Alignment.CenterHorizontally
+            modifier = Modifier.fillMaxSize().padding(16.dp),
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.Center
         )
         {
             Image(
@@ -45,15 +50,14 @@ fun WeatherStateCard(
 
             Text(
                 text = weatherStateData.value,
-                style = Theme.textStyle.label.md.semiBold,
+                style = Theme.textStyle.title.md,
                 color = Theme.color.text.primary,
                 modifier = Modifier.padding(bottom = 2.dp)
             )
 
             Text(
                 text = weatherStateData.state,
-                fontSize = 14.sp,
-                style = Theme.textStyle.label.md.regular,
+                style = Theme.textStyle.title.md,
                 color = Theme.color.text.primary,
             )
         }
