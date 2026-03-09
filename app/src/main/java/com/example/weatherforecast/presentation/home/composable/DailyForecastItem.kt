@@ -1,5 +1,6 @@
 package com.example.weatherforecast.presentation.home.composable
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -31,6 +32,7 @@ fun DailyForecastItem(
     Row(
         modifier = modifier
             .fillMaxWidth()
+            .background(Theme.color.background.card)
             .padding(vertical = 12.dp, horizontal = 12.dp),
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.SpaceBetween

@@ -47,7 +47,7 @@ fun LocationDesign(
         ) {
 
             Image(
-                painter = painterResource(if (isDay == 1) R.drawable.ic_location_dark else R.drawable.ic_location_light),
+                painter = painterResource(if (isDay == 1) R.drawable.ic_location_light else R.drawable.ic_location_dark),
                 contentDescription = "location icon",
                 modifier = Modifier.padding(top = 4.dp)
             )
@@ -63,7 +63,7 @@ fun LocationDesign(
     }
 }
 
-@Preview(showBackground = true)
+@Preview
 @Composable
 private fun LocationDesignPreview() {
     LocationDesign(

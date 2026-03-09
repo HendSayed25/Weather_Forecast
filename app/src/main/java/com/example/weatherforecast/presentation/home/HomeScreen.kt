@@ -20,7 +20,6 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
@@ -46,7 +45,7 @@ import com.example.weatherforecast.presentation.shared.UiState
 
 @Composable
 fun HomeScreen(
-    locationGranted : Boolean,
+    locationGranted: Boolean,
     modifier: Modifier = Modifier,
     viewModel: HomeViewModel = hiltViewModel()
 ) {
@@ -113,11 +112,9 @@ private fun HomeScreenContent(
     Box(
         modifier = modifier
             .fillMaxSize()
-            .background(Color.White)
-            .padding(top = 15.dp),
-        contentAlignment = Alignment.TopCenter
+            .background(Theme.color.background.screen),
 
-    ) {
+        ) {
         LazyColumn(
             horizontalAlignment = Alignment.CenterHorizontally,
             state = listState
@@ -158,7 +155,9 @@ private fun HomeScreenContent(
             }
 
             item { Next5DaysForecastCard(dailyForecastItems, isDay) }
-            item { Spacer(Modifier.height(20.dp)) }
+            item { Spacer(Modifier
+                .height(20.dp)
+                .background(Theme.color.background.screen)) }
         }
     }
 }
