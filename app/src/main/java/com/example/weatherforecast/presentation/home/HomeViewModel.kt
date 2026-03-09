@@ -1,9 +1,8 @@
 package com.example.weatherforecast.presentation.home
 
-import android.app.Application
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.weatherforecast.data.local.datastore.AppDataStore
 import com.example.weatherforecast.data.remote.model.Location
 import com.example.weatherforecast.data.remote.response.ForecastResponse
 import com.example.weatherforecast.data.remote.response.WeatherResponse
@@ -20,13 +19,12 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
-import kotlin.onSuccess
 
 @HiltViewModel
 class HomeViewModel @Inject constructor(
-    private val context: Application,
     private val locationRepository: LocationRepository,
-    private val weatherRepository: WeatherRepository
+    private val weatherRepository: WeatherRepository,
+    private val appDataStore: AppDataStore
 ) : ViewModel() {
 
     private val _locationUiState = MutableStateFlow<UiState<Location>>(UiState.Loading)
@@ -37,9 +35,10 @@ class HomeViewModel @Inject constructor(
 
     fun getCurrentLocation() {
         viewModelScope.launch {
-            locationRepository.getCurrentLocation(context)
+            locationRepository.getCurrentLocation()
                 .onSuccess {
                     _locationUiState.value = UiState.Success(it)
+                    appDataStore.setLocation(it.lat,it.long)
                     getCurrentWeather()
                 }
                 .onFailure { errorState("Failed to get Your Location , Try Again") }
