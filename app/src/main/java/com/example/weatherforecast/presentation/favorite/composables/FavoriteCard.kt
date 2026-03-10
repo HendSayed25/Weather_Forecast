@@ -1,6 +1,5 @@
 package com.example.weatherforecast.presentation.favorite.composables
 
-import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -40,8 +39,6 @@ fun FavoriteCard(
             } else false
         }
     )
-
-    Log.e("FavItem","${item.cityName }+ ${item.description}")
 
     SwipeToDismissBox(
         state = dismissState,
