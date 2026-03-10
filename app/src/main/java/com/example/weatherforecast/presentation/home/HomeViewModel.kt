@@ -1,7 +1,9 @@
 package com.example.weatherforecast.presentation.home
 
+import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import androidx.navigation.toRoute
 import com.example.weatherforecast.data.local.datastore.AppDataStore
 import com.example.weatherforecast.data.remote.model.Location
 import com.example.weatherforecast.data.remote.response.ForecastResponse
@@ -12,6 +14,7 @@ import com.example.weatherforecast.presentation.home.mapper.toCurrentWeatherUi
 import com.example.weatherforecast.presentation.home.mapper.toDaily
 import com.example.weatherforecast.presentation.home.mapper.toHourly
 import com.example.weatherforecast.presentation.home.mapper.toWeatherUiModel
+import com.example.weatherforecast.presentation.navigation.Route
 import com.example.weatherforecast.presentation.shared.UiState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -24,7 +27,8 @@ import javax.inject.Inject
 class HomeViewModel @Inject constructor(
     private val locationRepository: LocationRepository,
     private val weatherRepository: WeatherRepository,
-    private val appDataStore: AppDataStore
+    private val appDataStore: AppDataStore,
+    savedStateHandle: SavedStateHandle,
 ) : ViewModel() {
 
     private val _locationUiState = MutableStateFlow<UiState<Location>>(UiState.Loading)
@@ -33,12 +37,22 @@ class HomeViewModel @Inject constructor(
     private val _weatherUiState = MutableStateFlow<HomeUiState>(HomeUiState.Loading)
     val weatherState = _weatherUiState.asStateFlow()
 
+    private val locationId: Int? = savedStateHandle.toRoute<Route.HomeRoute>().locationId
+
+    fun getLocation() {
+        if (locationId == null) {
+            getCurrentLocation()
+        } else {
+            getFavLocation()
+        }
+    }
+
     fun getCurrentLocation() {
         viewModelScope.launch {
             locationRepository.getCurrentLocation()
                 .onSuccess {
                     _locationUiState.value = UiState.Success(it)
-                    appDataStore.setLocation(it.lat,it.long)
+                    appDataStore.setLocation(it.lat, it.long)
                     getCurrentWeather()
                 }
                 .onFailure { errorState("Failed to get Your Location , Try Again") }
@@ -96,7 +110,7 @@ class HomeViewModel @Inject constructor(
         }
     }
 
-    private fun getForecastWeatherSuccess(forecast : ForecastResponse){
+    private fun getForecastWeatherSuccess(forecast: ForecastResponse) {
         val currentState = _weatherUiState.value
 
         if (currentState is HomeUiState.Success) {
@@ -107,7 +121,22 @@ class HomeViewModel @Inject constructor(
         }
     }
 
-    private fun errorState(message : String){
+    fun getFavLocation() {
+        viewModelScope.launch {
+            try {
+                val id = locationId ?: return@launch
+                val result = weatherRepository.getFavWeather(id = id)
+                val location = Location(result.lat, result.long, result.cityName, result.cityDescription)
+                _locationUiState.value = UiState.Success(location)
+
+                getCurrentWeather()
+            } catch (e: Exception) {
+                _locationUiState.value = UiState.Error(e.message ?: "Something went wrong")
+            }
+        }
+    }
+
+    private fun errorState(message: String) {
         _weatherUiState.value = HomeUiState.Error(message)
     }
 }
