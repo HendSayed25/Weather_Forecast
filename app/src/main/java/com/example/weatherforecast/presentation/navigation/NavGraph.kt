@@ -8,9 +8,9 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.example.weatherforecast.presentation.favorite.FavoriteScreen
-import com.example.weatherforecast.presentation.map.MapScreen
-import com.example.weatherforecast.presentation.home.HomeScreen
+import com.example.weatherforecast.presentation.screen.favorite.FavoriteScreen
+import com.example.weatherforecast.presentation.screen.home.HomeScreen
+import com.example.weatherforecast.presentation.screen.map.MapScreen
 
 @Composable
 fun NavGraph(
