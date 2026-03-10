@@ -13,11 +13,15 @@ class WeatherLocalDataSource @Inject constructor(
         weatherDao.addWeather(weather)
     }
 
-    suspend fun deleteWeather(weather: Weather) {
-        weatherDao.deleteWeather(weather)
+    suspend fun deleteWeather(weatherId: Int) {
+        weatherDao.deleteWeather(weatherId)
     }
 
     fun getAllWeathers(): Flow<List<Weather>> {
         return weatherDao.getAllWeathers()
+    }
+
+    suspend fun getFavWeather(id: Int): Weather {
+        return weatherDao.getFavWeather(id)
     }
 }

@@ -54,7 +54,7 @@ fun HomeScreen(
 
     LaunchedEffect(locationGranted) {
         if (locationGranted) {
-            viewModel.getCurrentLocation()
+            viewModel.getLocation()
         }
     }
 
@@ -71,7 +71,7 @@ fun HomeScreen(
 
         is HomeUiState.Error -> {
             ErrorScreen(weather.msg) {
-                viewModel.getCurrentLocation()
+                viewModel.getLocation()
             }
         }
 

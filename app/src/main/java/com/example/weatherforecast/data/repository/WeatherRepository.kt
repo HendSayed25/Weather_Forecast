@@ -5,8 +5,8 @@ import com.example.weatherforecast.data.local.entity.Weather
 import com.example.weatherforecast.data.remote.datasource.WeatherRemoteDataSource
 import com.example.weatherforecast.data.remote.response.ForecastResponse
 import com.example.weatherforecast.data.remote.response.WeatherResponse
-import javax.inject.Inject
 import kotlinx.coroutines.flow.Flow
+import javax.inject.Inject
 
 
 class WeatherRepository @Inject constructor(
@@ -21,15 +21,26 @@ class WeatherRepository @Inject constructor(
         return weatherRemoteDataSource.getForecastWeather(lat, long)
     }
 
-    suspend fun addWeatherToFav(lat: Double, long: Double,cityName : String , countryName : String){
-        weatherLocalDataSource.addWeather(Weather(lat = lat, long = long, cityName = cityName, cityDescription = countryName))
+    suspend fun addWeatherToFav(lat: Double, long: Double, cityName: String, countryName: String) {
+        weatherLocalDataSource.addWeather(
+            Weather(
+                lat = lat,
+                long = long,
+                cityName = cityName,
+                cityDescription = countryName
+            )
+        )
     }
 
-    suspend fun deleteWeatherFromFav(weather: Weather){
-        weatherLocalDataSource.deleteWeather(weather)
+    suspend fun deleteWeatherFromFav(weatherId: Int) {
+        weatherLocalDataSource.deleteWeather(weatherId)
     }
 
-    fun getAllFavWeathers() : Flow<List<Weather>>{
+    fun getAllFavWeathers(): Flow<List<Weather>> {
         return weatherLocalDataSource.getAllWeathers()
+    }
+
+    suspend fun getFavWeather(id: Int): Weather {
+        return weatherLocalDataSource.getFavWeather(id)
     }
 }

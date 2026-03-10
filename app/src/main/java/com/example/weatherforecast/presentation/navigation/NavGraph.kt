@@ -8,6 +8,7 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.example.weatherforecast.presentation.favorite.FavoriteScreen
 import com.example.weatherforecast.presentation.map.MapScreen
 import com.example.weatherforecast.presentation.home.HomeScreen
 
@@ -21,15 +22,19 @@ fun NavGraph(
     CompositionLocalProvider(LocalNavController provides navController) {
         NavHost(
             navController = navController,
-            startDestination = Route.HomeRoute,
+            startDestination = Route.HomeRoute(),
             modifier = modifier
         ) {
             composable<Route.HomeRoute> {
                 HomeScreen(locationGranted = locationGranted)
             }
 
-            composable<Route.MapScreen> {
+            composable<Route.MapRoute> {
                 MapScreen()
+            }
+
+            composable<Route.FavoriteRoute>{
+                FavoriteScreen()
             }
         }
     }

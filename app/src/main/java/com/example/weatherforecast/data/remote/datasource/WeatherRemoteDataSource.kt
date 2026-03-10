@@ -1,6 +1,5 @@
 package com.example.weatherforecast.data.remote.datasource
 
-import android.util.Log.e
 import com.example.weatherforecast.BuildConfig
 import com.example.weatherforecast.data.remote.network.WeatherApiClient
 import com.example.weatherforecast.data.remote.response.ForecastResponse

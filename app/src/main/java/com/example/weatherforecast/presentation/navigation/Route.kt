@@ -5,7 +5,9 @@ import kotlinx.serialization.Serializable
 @Serializable
 sealed interface Route {
     @Serializable
-    object HomeRoute : Route
+    data class HomeRoute(val locationId : Int? = null) : Route
     @Serializable
-    object MapScreen : Route
+    object MapRoute : Route
+    @Serializable
+    object FavoriteRoute : Route
 }

@@ -1,7 +1,6 @@
 package com.example.weatherforecast.data.local.dao
 
 import androidx.room.Dao
-import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
@@ -16,6 +15,9 @@ interface WeatherDao {
     @Query("SELECT * FROM favorites")
     fun getAllWeathers() : Flow<List<Weather>>
 
-    @Delete
-    suspend fun deleteWeather(weather : Weather)
+    @Query("SELECT * FROM favorites WHERE id = :id")
+    suspend fun getFavWeather(id : Int) : Weather
+
+    @Query("DELETE FROM favorites WHERE id = :weatherId")
+    suspend fun deleteWeather(weatherId : Int)
 }

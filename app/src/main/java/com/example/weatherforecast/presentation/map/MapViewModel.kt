@@ -14,7 +14,6 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.stateIn
-import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -50,8 +49,8 @@ class MapViewModel @Inject constructor(
     fun getAddress(lat: Double, long: Double, onResult: (Address) -> Unit) {
         viewModelScope.launch {
             locationRepository.getLocationDetails(lat, long)
-                .onSuccess { it ->
-                    _locationDetails.update { it }
+                .onSuccess {
+                    _locationDetails.value = it
                     onResult(it)
                 }.onFailure {
                     _events.emit(UiEvent.ShowSnackbar("Something went wrong, please try again!"))
