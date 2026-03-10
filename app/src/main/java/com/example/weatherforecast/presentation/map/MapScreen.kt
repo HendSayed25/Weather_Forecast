@@ -55,9 +55,9 @@ fun MapScreen(
         cameraState.animateTo(
             finalPosition = cameraState.position.copy(
                 target = Position(latitude = coordinate.lat, longitude = coordinate.long),
-                zoom = 16.0
+                zoom = 10.0
             ),
-            duration = 5.seconds
+            duration = 3.seconds
         )
     }
 
