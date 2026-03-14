@@ -1,5 +1,8 @@
 package com.example.weatherforecast.presentation.navigation
 
+import BottomNavBar
+import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.LaunchedEffect
@@ -30,25 +33,29 @@ fun NavGraph(
     }
 
     CompositionLocalProvider(LocalNavController provides navController) {
-        NavHost(
-            navController = navController,
-            startDestination = Route.AlertRoute,
-            modifier = modifier
-        ) {
-            composable<Route.HomeRoute> {
-                HomeScreen(locationGranted = locationGranted)
-            }
+        Scaffold(
+            bottomBar = { BottomNavBar(navController) }
+        ) { paddingValues ->
+            NavHost(
+                navController = navController,
+                startDestination = Route.HomeRoute(),
+                modifier = modifier.padding(paddingValues)
+            ) {
+                composable<Route.HomeRoute> {
+                    HomeScreen(locationGranted = locationGranted)
+                }
 
-            composable<Route.MapRoute> {
-                MapScreen()
-            }
+                composable<Route.MapRoute> {
+                    MapScreen()
+                }
 
-            composable<Route.FavoriteRoute> {
-                FavoriteScreen()
-            }
+                composable<Route.FavoriteRoute> {
+                    FavoriteScreen()
+                }
 
-            composable<Route.AlertRoute> {
-                AlertScreen()
+                composable<Route.AlertRoute> {
+                    AlertScreen()
+                }
             }
         }
     }

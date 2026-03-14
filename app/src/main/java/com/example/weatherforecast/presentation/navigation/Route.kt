@@ -12,4 +12,6 @@ sealed interface Route {
     object FavoriteRoute : Route
     @Serializable
     object AlertRoute : Route
+    @Serializable
+    object SettingRoute : Route
 }
