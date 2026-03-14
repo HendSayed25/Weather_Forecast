@@ -18,14 +18,19 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import com.example.weatherforecast.designsystem.theme.WeatherForecastTheme
 import com.example.weatherforecast.presentation.navigation.NavGraph
+import com.example.weatherforecast.worker.Constants.ALERT_NAVIGATE_KEY
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
 
+    private val navigateTo = mutableStateOf<String?>(null)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
+
+        navigateTo.value = intent.getStringExtra(ALERT_NAVIGATE_KEY)
+
         setContent {
             WeatherForecastTheme {
 
@@ -53,7 +58,8 @@ class MainActivity : ComponentActivity() {
 
                     NavGraph(
                         modifier = Modifier.padding(innerPadding),
-                        locationGranted = locationGranted
+                        locationGranted = locationGranted,
+                        navigateTo = navigateTo.value
                     )
                 }
             }
