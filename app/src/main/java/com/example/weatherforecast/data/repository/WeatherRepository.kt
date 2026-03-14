@@ -1,6 +1,7 @@
 package com.example.weatherforecast.data.repository
 
 import com.example.weatherforecast.data.local.datasource.WeatherLocalDataSource
+import com.example.weatherforecast.data.local.entity.Alert
 import com.example.weatherforecast.data.local.entity.Weather
 import com.example.weatherforecast.data.remote.datasource.WeatherRemoteDataSource
 import com.example.weatherforecast.data.remote.response.ForecastResponse
@@ -42,5 +43,37 @@ class WeatherRepository @Inject constructor(
 
     suspend fun getFavWeather(id: Int): Weather {
         return weatherLocalDataSource.getFavWeather(id)
+    }
+
+    suspend fun addAlert(
+        title: String,
+        time: Long,
+        date: Long,
+        condition: String,
+        type: String,
+        isEnable: Boolean
+    ): Long {
+        return weatherLocalDataSource.addAlert(
+            Alert(
+                title = title,
+                time = time,
+                date = date,
+                condition = condition,
+                type = type,
+                isEnable = isEnable
+            )
+        )
+    }
+
+    suspend fun deleteAlert(alert: Alert) {
+        weatherLocalDataSource.deleteAlert(alert)
+    }
+
+    fun getAllAlerts(): Flow<List<Alert>> {
+        return weatherLocalDataSource.getAllAlerts()
+    }
+
+    suspend fun updateAlert(alert: Alert) {
+        weatherLocalDataSource.updateAlert(alert)
     }
 }

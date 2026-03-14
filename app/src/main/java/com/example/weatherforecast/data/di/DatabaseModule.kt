@@ -2,6 +2,7 @@ package com.example.weatherforecast.data.di
 
 import android.content.Context
 import androidx.room.Room
+import com.example.weatherforecast.data.local.dao.AlertDao
 import com.example.weatherforecast.data.local.dao.WeatherDao
 import com.example.weatherforecast.data.local.db.AppDatabase
 import dagger.Module
@@ -10,7 +11,6 @@ import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import javax.inject.Singleton
-import kotlin.jvm.java
 
 @Module
 @InstallIn(SingletonComponent::class)
@@ -30,5 +30,11 @@ object DatabaseModule {
     @Singleton
     fun provideWeatherDao(database: AppDatabase): WeatherDao {
         return database.weatherDao()
+    }
+
+    @Provides
+    @Singleton
+    fun provideAlertDao(database: AppDatabase): AlertDao {
+        return database.alertDao()
     }
 }
