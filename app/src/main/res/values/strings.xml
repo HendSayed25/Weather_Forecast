@@ -37,4 +37,15 @@
     <string name="snooze_action">SNOOZE</string>
     <string name="dismiss_title">Dismiss</string>
     <string name="snooze_title">Snooze %d min</string>
+    <string name="something_wrong">Something went wrong , Please Try Again !</string>
+    <string name="deleted_success">"Deleted Successfully!"</string>
+    <string name="update_success">"Updated Successfully!</string>
+    <string name="add_success">Added Successfully!</string>
+    <string name="condition_select_reason">Select Reason</string>
+    <string name="condition_clouds">Clouds</string>
+    <string name="condition_scattered_clouds">Scattered Clouds</string>
+    <string name="condition_clear">Clear</string>
+    <string name="condition_rain">Rain</string>
+    <string name="condition_snow">Snow</string>
+    <string name="condition_sand">Sand</string>
 </resources>
