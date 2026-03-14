@@ -25,12 +25,12 @@ import com.example.weatherforecast.R
 import com.example.weatherforecast.designsystem.theme.Theme
 import com.example.weatherforecast.presentation.navigation.LocalNavController
 import com.example.weatherforecast.presentation.navigation.Route
-import com.example.weatherforecast.presentation.screen.favorite.composables.EmptyFavorite
 import com.example.weatherforecast.presentation.screen.favorite.composables.FavoriteCard
 import com.example.weatherforecast.presentation.screen.favorite.model.FavoriteItem
 import com.example.weatherforecast.presentation.screen.shared.UiEvent
 import com.example.weatherforecast.presentation.screen.shared.UiState
 import com.example.weatherforecast.presentation.screen.shared.composable.AppSnackbar
+import com.example.weatherforecast.presentation.screen.shared.composable.EmptyState
 import com.example.weatherforecast.presentation.screen.shared.composable.FloatingActionButton
 import com.example.weatherforecast.presentation.screen.shared.composable.Loading
 
@@ -117,9 +117,11 @@ private fun FavoriteScreenContent(
                         }
                     }
                 } else {
-                    EmptyFavorite()
+                    EmptyState(
+                        iconId = R.drawable.heart,
+                        textId = R.string.no_favorite_yet
+                    )
                 }
-
             }
         }
 

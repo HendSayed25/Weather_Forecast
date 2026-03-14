@@ -4,16 +4,20 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
-@Entity(tableName = "favorites")
-data class Weather(
+@Entity(tableName = "alerts")
+data class Alert(
     @PrimaryKey(autoGenerate = true)
-    val id: Int = 0,
+    val id : Int = 0,
     @ColumnInfo
-    val cityName: String,
+    val title : String,
     @ColumnInfo
-    val cityDescription: String,
+    val time : Long,
     @ColumnInfo
-    val lat: Double,
+    val date : Long,
     @ColumnInfo
-    val long: Double
+    val type : String,
+    @ColumnInfo
+    val condition : String,
+    @ColumnInfo
+    val isEnable : Boolean
 )

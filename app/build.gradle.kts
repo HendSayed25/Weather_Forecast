@@ -96,6 +96,12 @@ dependencies {
     //datastore
     implementation(libs.datastore.preferences)
 
+    //work manager
+    implementation(libs.androidx.work.runtime.ktx)
+    implementation(libs.androidx.core.ktx.v1120)
+    //work with hilt
+    implementation(libs.androidx.hilt.work)
+    ksp(libs.androidx.hilt.compiler)
 
 
     testImplementation(libs.junit)
