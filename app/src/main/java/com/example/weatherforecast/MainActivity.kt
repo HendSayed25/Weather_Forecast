@@ -7,9 +7,6 @@ import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -34,34 +31,31 @@ class MainActivity : ComponentActivity() {
         setContent {
             WeatherForecastTheme {
 
-                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
+                var locationGranted by remember { mutableStateOf(false) }
 
-                    var locationGranted by remember { mutableStateOf(false) }
-
-                    val permissionLauncher =
-                        rememberLauncherForActivityResult(
-                            ActivityResultContracts.RequestMultiplePermissions()
-                        ) { result ->
-                            locationGranted =
-                                result[Manifest.permission.ACCESS_FINE_LOCATION] == true ||
-                                        result[Manifest.permission.ACCESS_COARSE_LOCATION] == true
-                        }
-
-                    LaunchedEffect(Unit) {
-                        permissionLauncher.launch(
-                            arrayOf(
-                                Manifest.permission.ACCESS_FINE_LOCATION,
-                                Manifest.permission.ACCESS_COARSE_LOCATION
-                            )
-                        )
+                val permissionLauncher =
+                    rememberLauncherForActivityResult(
+                        ActivityResultContracts.RequestMultiplePermissions()
+                    ) { result ->
+                        locationGranted =
+                            result[Manifest.permission.ACCESS_FINE_LOCATION] == true ||
+                                    result[Manifest.permission.ACCESS_COARSE_LOCATION] == true
                     }
 
-                    NavGraph(
-                        modifier = Modifier.padding(innerPadding),
-                        locationGranted = locationGranted,
-                        navigateTo = navigateTo.value
+                LaunchedEffect(Unit) {
+                    permissionLauncher.launch(
+                        arrayOf(
+                            Manifest.permission.ACCESS_FINE_LOCATION,
+                            Manifest.permission.ACCESS_COARSE_LOCATION
+                        )
                     )
                 }
+
+                NavGraph(
+                    modifier = Modifier,
+                    locationGranted = locationGranted,
+                    navigateTo = navigateTo.value
+                )
             }
         }
     }

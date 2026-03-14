@@ -48,4 +48,6 @@
     <string name="condition_rain">Rain</string>
     <string name="condition_snow">Snow</string>
     <string name="condition_sand">Sand</string>
+    <string name="home">Home</string>
+    <string name="setting">Setting</string>
 </resources>
