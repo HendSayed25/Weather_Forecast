@@ -3,6 +3,7 @@ package com.example.weatherforecast.presentation.screen.shared.composable
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -24,7 +25,7 @@ fun EmptyState(
     modifier: Modifier = Modifier
 ){
     Column(
-        modifier = modifier.fillMaxSize(),
+        modifier = modifier.fillMaxSize().background(Theme.color.background.screen),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
