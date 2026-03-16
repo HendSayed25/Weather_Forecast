@@ -50,4 +50,15 @@
     <string name="condition_sand">Sand</string>
     <string name="home">Home</string>
     <string name="setting">Setting</string>
+    <string name="location_service">Location Service</string>
+    <string name="use_gps_location">Use GPS Location</string>
+    <string name="detect_current_city">Detect current city automatically</string>
+    <string name="set_manually_location">Set Manual Location</string>
+    <string name="temperature">Temperature</string>
+    <string name="wind_speed">Wind Speed</string>
+    <string name="meter_per_second">m/s (Meters per second)</string>
+    <string name="meter_per_hour">mph (Meters per hour)</string>
+    <string name="measurement_units">Measurement Units</string>
+    <string name="app_pref">App Preferences</string>
+    <string name="language">Language</string>
 </resources>
