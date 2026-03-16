@@ -13,7 +13,8 @@ import com.example.weatherforecast.presentation.screen.home.model.WeatherState
 @Composable
 fun WeatherStateContent(
     weatherStates :List<WeatherState>,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    languageCode : String
 ) {
     Column (
         verticalArrangement = Arrangement.spacedBy(6.dp),
@@ -25,15 +26,15 @@ fun WeatherStateContent(
             horizontalArrangement = Arrangement.spacedBy(6.dp),
             modifier = Modifier.fillMaxWidth()
         ) {
-            WeatherStateCard(Modifier.weight(1f),weatherStates[0])
-            WeatherStateCard(Modifier.weight(1f),weatherStates[1])
+            WeatherStateCard(Modifier.weight(1f),weatherStates[0],languageCode)
+            WeatherStateCard(Modifier.weight(1f),weatherStates[1],languageCode)
         }
         Row(
             horizontalArrangement = Arrangement.spacedBy(6.dp),
             modifier = Modifier.fillMaxWidth().padding(bottom = 24.dp)
         ) {
-            WeatherStateCard(Modifier.weight(1f),weatherStates[2])
-            WeatherStateCard(Modifier.weight(1f),weatherStates[3])
+            WeatherStateCard(Modifier.weight(1f),weatherStates[2],languageCode)
+            WeatherStateCard(Modifier.weight(1f),weatherStates[3],languageCode)
         }
     }
 }

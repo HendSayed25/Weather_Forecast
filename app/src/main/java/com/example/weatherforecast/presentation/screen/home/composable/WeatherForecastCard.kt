@@ -26,7 +26,11 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.weatherforecast.R
+import com.example.weatherforecast.data.local.datastore.Language
+import com.example.weatherforecast.data.local.datastore.TempUnit
 import com.example.weatherforecast.designsystem.theme.Theme
+import com.example.weatherforecast.presentation.utils.LanguageUtilUtils.formatNumberByLocale
+import com.example.weatherforecast.presentation.utils.LanguageUtilUtils.getTempWithLabel
 
 
 @Composable
@@ -34,6 +38,8 @@ fun WeatherForecastCard(
     iconPainter: Painter,
     temperature: Int,
     time: String,
+    language: Language = Language.ENGLISH,
+    tempUnit: TempUnit = TempUnit.CELSIUS,
     modifier: Modifier = Modifier,
 ) {
     Box(
@@ -49,7 +55,9 @@ fun WeatherForecastCard(
                 .offset(y = 30.dp),
             shape = RoundedCornerShape(20.dp),
             colors = CardDefaults.cardColors(containerColor = Color.Transparent),
-            border = BorderStroke(width = 0.5.dp, color = MaterialTheme.colorScheme.onBackground),
+            border = BorderStroke(
+                width = 0.5.dp, color = MaterialTheme.colorScheme.onBackground
+            ),
         ) {
             Column(
                 modifier = Modifier
@@ -61,8 +69,12 @@ fun WeatherForecastCard(
                 Spacer(modifier = Modifier.height(30.dp))
 
                 Text(
-                    text = "${temperature}°C",
-                    style = Theme.textStyle.title.md,
+                    text = "${
+                        formatNumberByLocale(
+                            temperature, language.code
+                        )
+                    } ${getTempWithLabel(language, tempUnit)}",
+                    style = Theme.textStyle.title.sm,
                     color = Theme.color.text.primary,
                     modifier = Modifier.padding(bottom = 2.dp)
                 )
@@ -88,8 +100,6 @@ fun WeatherForecastCard(
 @Composable
 private fun WeatherForecastCardPreview() {
     WeatherForecastCard(
-        painterResource(R.drawable.ic_clouds),
-        25,
-        "25-11"
+        painterResource(R.drawable.ic_clouds), 25, "25-11"
     )
 }

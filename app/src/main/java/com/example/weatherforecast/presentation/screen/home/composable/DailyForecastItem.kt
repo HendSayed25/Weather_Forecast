@@ -14,21 +14,27 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.weatherforecast.R
+import com.example.weatherforecast.data.local.datastore.Language
+import com.example.weatherforecast.data.local.datastore.TempUnit
 import com.example.weatherforecast.designsystem.theme.Theme
-
+import com.example.weatherforecast.presentation.utils.LanguageUtilUtils.getTempWithLabel
 
 @Composable
 fun DailyForecastItem(
     day: String,
     iconPainter: Painter,
-    maxTemp: Int,
-    minTemp: Int,
+    maxTemp: String,
+    minTemp: String,
     isDay: Int,
+    language: Language,
+    tempUnit: TempUnit,
     modifier: Modifier = Modifier
 ) {
+
     Row(
         modifier = modifier
             .fillMaxWidth()
@@ -41,6 +47,7 @@ fun DailyForecastItem(
             text = day,
             style = Theme.textStyle.title.sm,
             color = Theme.color.text.primary,
+            textAlign = if (language == Language.ARABIC) TextAlign.End else TextAlign.Start,
             modifier = Modifier.weight(1f)
         )
 
@@ -48,22 +55,30 @@ fun DailyForecastItem(
             painter = iconPainter,
             contentDescription = null,
             tint = Color.Unspecified,
-            modifier = Modifier.size(40.dp).weight(1f)
+            modifier = Modifier
+                .size(40.dp)
+                .weight(1f)
         )
 
-        MinMaxDegree(maxTemp, minTemp, isDay, showBackGround = false)
+        MinMaxDegree(
+            maxTemp = "$maxTemp ${getTempWithLabel(language, tempUnit)}",
+            minTemp = "$minTemp ${getTempWithLabel(language, tempUnit)}",
+            isDay = isDay,
+            showBackGround = false
+        )
     }
 }
-
 
 @Preview(showBackground = true)
 @Composable
 private fun DailyForecastItemPreview() {
     DailyForecastItem(
-        "Sunday",
-        painterResource(R.drawable.ic_clouds),
-        8,
-        22,
-        1
+        day = "Sunday",
+        iconPainter = painterResource(R.drawable.ic_clouds),
+        maxTemp = "8",
+        minTemp = "22",
+        isDay = 1,
+        language = Language.ARABIC,
+        tempUnit = TempUnit.CELSIUS
     )
 }
