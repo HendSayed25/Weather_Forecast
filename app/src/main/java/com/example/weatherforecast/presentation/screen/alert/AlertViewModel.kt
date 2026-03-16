@@ -13,7 +13,7 @@ import com.example.weatherforecast.presentation.screen.alert.model.AlertModel
 import com.example.weatherforecast.presentation.screen.shared.UiEvent
 import com.example.weatherforecast.presentation.screen.shared.UiState
 import com.example.weatherforecast.presentation.utils.TimeUtils
-import com.example.weatherforecast.worker.AlertScheduler
+import com.example.weatherforecast.presentation.worker.AlertScheduler
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow

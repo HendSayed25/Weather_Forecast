@@ -13,7 +13,7 @@ import com.example.weatherforecast.data.local.datastore.Language
 import com.example.weatherforecast.designsystem.theme.WeatherForecastTheme
 import com.example.weatherforecast.presentation.navigation.NavGraph
 import com.example.weatherforecast.presentation.utils.LanguageUtilUtils.setAppLocale
-import com.example.weatherforecast.worker.Constants.ALERT_NAVIGATE_KEY
+import com.example.weatherforecast.presentation.worker.Constants.ALERT_NAVIGATE_KEY
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 

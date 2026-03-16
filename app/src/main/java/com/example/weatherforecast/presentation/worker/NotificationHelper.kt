@@ -1,4 +1,4 @@
-package com.example.weatherforecast.worker
+package com.example.weatherforecast.presentation.worker
 
 import android.app.NotificationChannel
 import android.app.NotificationManager
@@ -13,15 +13,15 @@ import androidx.annotation.RequiresApi
 import androidx.core.app.NotificationCompat
 import com.example.weatherforecast.MainActivity
 import com.example.weatherforecast.R
-import com.example.weatherforecast.worker.Constants.ALARM_CHANNEL_ID
-import com.example.weatherforecast.worker.Constants.ALARM_CHANNEL_NAME
-import com.example.weatherforecast.worker.Constants.ALERT_ID_KEY
-import com.example.weatherforecast.worker.Constants.ALERT_MESSAGE_KEY
-import com.example.weatherforecast.worker.Constants.ALERT_NAVIGATE_KEY
-import com.example.weatherforecast.worker.Constants.ALERT_NAVIGATE_VALUE
-import com.example.weatherforecast.worker.Constants.ALERT_TITLE_KEY
-import com.example.weatherforecast.worker.Constants.NOTIFICATION_CHANNEL_ID
-import com.example.weatherforecast.worker.Constants.NOTIFICATION_CHANNEL_NAME
+import com.example.weatherforecast.presentation.worker.Constants.ALARM_CHANNEL_ID
+import com.example.weatherforecast.presentation.worker.Constants.ALARM_CHANNEL_NAME
+import com.example.weatherforecast.presentation.worker.Constants.ALERT_ID_KEY
+import com.example.weatherforecast.presentation.worker.Constants.ALERT_MESSAGE_KEY
+import com.example.weatherforecast.presentation.worker.Constants.ALERT_NAVIGATE_KEY
+import com.example.weatherforecast.presentation.worker.Constants.ALERT_NAVIGATE_VALUE
+import com.example.weatherforecast.presentation.worker.Constants.ALERT_TITLE_KEY
+import com.example.weatherforecast.presentation.worker.Constants.NOTIFICATION_CHANNEL_ID
+import com.example.weatherforecast.presentation.worker.Constants.NOTIFICATION_CHANNEL_NAME
 import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
 import javax.inject.Singleton
