@@ -49,8 +49,7 @@ import requestLocationPermissionWithSettingsRedirect
 
 @Composable
 fun HomeScreen(
-    modifier: Modifier = Modifier,
-    viewModel: HomeViewModel = hiltViewModel()
+    modifier: Modifier = Modifier, viewModel: HomeViewModel = hiltViewModel()
 ) {
     val locationState by viewModel.locationUiState.collectAsStateWithLifecycle()
     val weatherState by viewModel.weatherState.collectAsStateWithLifecycle()
@@ -62,8 +61,7 @@ fun HomeScreen(
     val activity = context as? Activity ?: return
 
     val requestLocationPermission = requestLocationPermissionWithSettingsRedirect(
-        onGranted = viewModel::getLocation,
-        activity = activity
+        onGranted = viewModel::getLocation, activity = activity
     )
 
     LaunchedEffect(Unit) {
@@ -71,10 +69,12 @@ fun HomeScreen(
     }
 
     when (val weather = weatherState) {
-        is HomeUiState.Loading -> { Loading() }
+        is HomeUiState.Loading -> {
+            Loading()
+        }
 
         is HomeUiState.Error -> {
-            ErrorScreen(weather.msg) {
+            ErrorScreen(stringResource(weather.msgId)) {
                 viewModel.getLocation()
             }
         }
@@ -83,7 +83,7 @@ fun HomeScreen(
             val location = locationState
             val cityName = if (location is UiState.Success) location.data.cityName else ""
 
-            val states = getWeatherStates(weatherStates = weather.weather)
+            val states = getWeatherStates(weatherStates = weather.weather, windSpeedUnit, language)
 
             HomeScreenContent(
                 cityName = cityName,
@@ -112,10 +112,11 @@ private fun HomeScreenContent(
     date: String,
     isDay: Int,
     tempUnit: TempUnit,
-    language : Language,
+    language: Language,
     modifier: Modifier = Modifier
 ) {
     val listState = rememberLazyListState()
+    val isRtl = language.code == "ar"
 
     Box(
         modifier = modifier
@@ -124,20 +125,19 @@ private fun HomeScreenContent(
 
         ) {
         LazyColumn(
-            horizontalAlignment = Alignment.CenterHorizontally,
-            state = listState
+            horizontalAlignment = Alignment.CenterHorizontally, state = listState
         ) {
-            item { LocationDesign(cityName, isDay, date,language) }
-            item { CurrentWeather(currentWeather, language,tempUnit,isDay) }
-            item { WeatherStateContent(weatherStates) }
+            item { LocationDesign(cityName, isDay, date, language) }
+            item { CurrentWeather(currentWeather, language, tempUnit, isDay) }
+            item { WeatherStateContent(weatherStates, languageCode = language.code) }
             item {
                 LazyRow(
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(horizontal = 16.dp),
-                    horizontalArrangement = Arrangement.spacedBy(12.dp)
-                )
-                {
+                    horizontalArrangement = Arrangement.spacedBy(12.dp),
+                    reverseLayout = isRtl
+                ) {
                     items(hourlyItems.size) { item ->
                         WeatherForecastCard(
                             painterResource(hourlyItems[item].imageId),
@@ -159,14 +159,18 @@ private fun HomeScreenContent(
                     modifier = Modifier
                         .padding(start = 12.dp, bottom = 5.dp)
                         .fillMaxWidth(),
-                    textAlign = TextAlign.Start
+                    textAlign = if (isRtl) TextAlign.Start else TextAlign.End,
                 )
             }
 
-            item { Next5DaysForecastCard(dailyForecastItems, isDay,language,tempUnit) }
-            item { Spacer(Modifier
-                .height(20.dp)
-                .background(Theme.color.background.screen)) }
+            item { Next5DaysForecastCard(dailyForecastItems, isDay, language, tempUnit) }
+            item {
+                Spacer(
+                    Modifier
+                        .height(20.dp)
+                        .background(Theme.color.background.screen)
+                )
+            }
         }
     }
 }
