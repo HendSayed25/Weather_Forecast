@@ -61,4 +61,7 @@
     <string name="measurement_units">Measurement Units</string>
     <string name="app_pref">App Preferences</string>
     <string name="language">Language</string>
+    <string name="get_location_error">Failed to get Your Location , Try Again"</string>
+    <string name="added">Added!</string>
+    <string name="failed">Failed!</string>
 </resources>
