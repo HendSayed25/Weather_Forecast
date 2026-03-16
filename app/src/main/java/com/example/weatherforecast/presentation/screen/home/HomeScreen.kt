@@ -15,14 +15,17 @@ import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -74,7 +77,13 @@ fun HomeScreen(
         }
 
         is HomeUiState.Error -> {
-            ErrorScreen(stringResource(weather.msgId)) {
+            ErrorScreen(message=stringResource(weather.msgId), imageId=R.drawable.error) {
+                viewModel.getLocation()
+            }
+        }
+
+        is HomeUiState.NoInternet ->{
+            ErrorScreen(message=stringResource(R.string.no_internet), imageId=R.drawable.no_internet) {
                 viewModel.getLocation()
             }
         }
@@ -152,15 +161,20 @@ private fun HomeScreenContent(
             item { Spacer(Modifier.height(60.dp)) }
 
             stickyHeader {
-                Text(
-                    text = stringResource(R.string.next5Days),
-                    style = Theme.textStyle.title.lg,
-                    color = Theme.color.text.primary,
-                    modifier = Modifier
-                        .padding(start = 12.dp, bottom = 5.dp)
-                        .fillMaxWidth(),
-                    textAlign = if (isRtl) TextAlign.Start else TextAlign.End,
-                )
+                CompositionLocalProvider(
+                    LocalLayoutDirection provides if (language == Language.ARABIC)
+                        LayoutDirection.Rtl else LayoutDirection.Ltr
+                ) {
+                    Text(
+                        text = stringResource(R.string.next5Days),
+                        style = Theme.textStyle.title.lg,
+                        color = Theme.color.text.primary,
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(start = 12.dp, bottom = 5.dp, end = 12.dp),
+                        textAlign = TextAlign.Start,
+                    )
+                }
             }
 
             item { Next5DaysForecastCard(dailyForecastItems, isDay, language, tempUnit) }

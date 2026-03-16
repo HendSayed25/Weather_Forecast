@@ -65,4 +65,5 @@
     <string name="get_location_error">فشل في الحصول على موقعك، حاول مرة أخرى</string>
     <string name="added">تمت الإضافة!</string>
     <string name="failed">فشل!</string>
+    <string name="no_internet">لا يوجد اتصال بالإنترنت، حاول الاتصال للحصول على آخر تحديث</string>
 </resources>

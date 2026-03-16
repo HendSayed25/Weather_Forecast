@@ -1,5 +1,6 @@
 package com.example.weatherforecast.presentation.screen.setting
 
+import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.weatherforecast.R
@@ -9,7 +10,9 @@ import com.example.weatherforecast.data.local.datastore.LocationType
 import com.example.weatherforecast.data.local.datastore.TempUnit
 import com.example.weatherforecast.data.local.datastore.WindSpeedUnit
 import com.example.weatherforecast.data.repository.LocationRepository
+import com.example.weatherforecast.presentation.utils.NetworkUtils
 import dagger.hilt.android.lifecycle.HiltViewModel
+import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.asSharedFlow
@@ -21,7 +24,8 @@ import javax.inject.Inject
 @HiltViewModel
 class SettingViewModel @Inject constructor(
     private val appDataStore: AppDataStore,
-    private val locationRepository: LocationRepository
+    private val locationRepository: LocationRepository,
+    @ApplicationContext private val context: Context
 ) : ViewModel() {
 
     private val _events = MutableSharedFlow<SettingsEvent>()
@@ -50,10 +54,19 @@ class SettingViewModel @Inject constructor(
 
     fun changeLocationType(type: LocationType) {
         viewModelScope.launch {
-            appDataStore.setLocationType(type)
             when (type) {
-                LocationType.GPS -> _events.emit(SettingsEvent.RequestLocationPermission)
-                LocationType.MAP -> _events.emit(SettingsEvent.NavigateToMapScreen)
+                LocationType.GPS ->{
+                    if(!NetworkUtils.isInternetAvailable(context))
+                        _events.emit(SettingsEvent.ShowSnackbar(R.string.no_internet))
+                    else {
+                        _events.emit(SettingsEvent.RequestLocationPermission)
+                        appDataStore.setLocationType(type)
+                    }
+                }
+                LocationType.MAP -> {
+                    _events.emit(SettingsEvent.NavigateToMapScreen)
+                    appDataStore.setLocationType(type)
+                }
             }
         }
     }

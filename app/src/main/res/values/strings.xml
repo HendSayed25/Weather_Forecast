@@ -64,4 +64,5 @@
     <string name="get_location_error">Failed to get Your Location , Try Again"</string>
     <string name="added">Added!</string>
     <string name="failed">Failed!</string>
+    <string name="no_internet">No Internet Connection , Try to connect to get the last update</string>
 </resources>

@@ -17,7 +17,7 @@ enum class LocationType {
     MAP
 }
 
-enum class Language(val label: String , val code : String){
-    ENGLISH("English","en"),
-    ARABIC("Arabic","ar")
+enum class Language(val englishLabel: String, val arabicLabel: String, val code: String) {
+    ENGLISH("English", "الإنجليزية", "en"),
+    ARABIC("Arabic", "العربية", "ar")
 }
