@@ -7,6 +7,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.ui.Modifier
+import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.weatherforecast.data.local.datastore.AppDataStore
 import com.example.weatherforecast.data.local.datastore.Language
@@ -24,6 +25,8 @@ class MainActivity : ComponentActivity() {
     lateinit var appDataStore: AppDataStore
 
     override fun onCreate(savedInstanceState: Bundle?) {
+
+        installSplashScreen()
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
 
