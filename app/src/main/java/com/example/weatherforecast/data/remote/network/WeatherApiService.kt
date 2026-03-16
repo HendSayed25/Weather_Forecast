@@ -1,9 +1,10 @@
 package com.example.weatherforecast.data.remote.network
 
 import com.example.weatherforecast.data.remote.response.ForecastResponse
+import com.example.weatherforecast.data.remote.response.GeoResponse
 import com.example.weatherforecast.data.remote.response.WeatherResponse
-import retrofit2.http.GET
 import retrofit2.Response
+import retrofit2.http.GET
 import retrofit2.http.Query
 
 interface WeatherApiService {
@@ -13,7 +14,8 @@ interface WeatherApiService {
         @Query("lat") lat: Double,
         @Query("lon") lon: Double,
         @Query("appid") apiKey: String,
-        @Query("units") units: String = "metric"
+        @Query("units") units: String = "metric",
+        @Query("lang") lang: String = "en"
     ) : Response<WeatherResponse>
 
     @GET("forecast")
@@ -24,4 +26,12 @@ interface WeatherApiService {
         @Query("units") units: String = "metric",
         @Query("lang") lang: String = "en"
     ): Response<ForecastResponse>
+
+    @GET("geo/1.0/reverse")
+    suspend fun getReverseGeo(
+        @Query("lat") lat: Double,
+        @Query("lon") lon: Double,
+        @Query("limit") limit: Int,
+        @Query("appid") apiKey: String
+    ): Response<List<GeoResponse>>
 }
