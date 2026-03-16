@@ -19,7 +19,7 @@ class LocationRepository @Inject constructor(
     private val geoRemoteDataSource: GeoRemoteDataSource,
     private val appDataStore: AppDataStore
 ) {
-    suspend fun getCurrentLocation(isUpdate: Boolean): Result<Location> {
+    suspend fun getCurrentLocation(isUpdate: Boolean = false): Result<Location> {
 
         return try {
             var coordinate = appDataStore.location.first()
