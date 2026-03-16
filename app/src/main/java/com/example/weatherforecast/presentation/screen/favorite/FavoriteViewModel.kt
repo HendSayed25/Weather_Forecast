@@ -2,6 +2,7 @@ package com.example.weatherforecast.presentation.screen.favorite
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.weatherforecast.R
 import com.example.weatherforecast.data.repository.WeatherRepository
 import com.example.weatherforecast.presentation.screen.favorite.mapper.toFavUiModel
 import com.example.weatherforecast.presentation.screen.favorite.model.FavoriteItem
@@ -18,7 +19,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class FavoriteViewModel @Inject constructor(
-    private val weatherRepository: WeatherRepository
+    private val weatherRepository: WeatherRepository,
 ) : ViewModel() {
     private val _uiState = MutableStateFlow<UiState<List<FavoriteItem>>>(UiState.Loading)
     val uiState = _uiState.asStateFlow()
@@ -33,7 +34,7 @@ class FavoriteViewModel @Inject constructor(
     fun getFavWeathers() {
         viewModelScope.launch {
             weatherRepository.getAllFavWeathers()
-                .catch { _events.emit(UiEvent.ShowSnackbar("Something went wrong!")) }
+                .catch { _events.emit(UiEvent.ShowSnackbar(R.string.something_wrong)) }
                 .collect { weathers -> _uiState.value = UiState.Success(weathers.map { it.toFavUiModel() }) }
         }
     }
@@ -42,9 +43,9 @@ class FavoriteViewModel @Inject constructor(
         viewModelScope.launch {
             try {
                 weatherRepository.deleteWeatherFromFav(weatherId)
-                _events.emit(UiEvent.ShowSnackbar("Deleted Successfully!"))
+                _events.emit(UiEvent.ShowSnackbar(R.string.deleted_success))
             } catch (e: Exception) {
-                _events.emit(UiEvent.ShowSnackbar("Something went wrong , Please Try Again !"))
+                _events.emit(UiEvent.ShowSnackbar(R.string.something_wrong))
             }
         }
     }

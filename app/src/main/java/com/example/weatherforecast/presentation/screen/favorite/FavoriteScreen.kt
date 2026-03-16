@@ -41,13 +41,14 @@ fun FavoriteScreen(
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
     val snackbarHostState = remember { SnackbarHostState() }
     val navController = LocalNavController.current
+    val context = LocalNavController.current.context
 
 
     LaunchedEffect(Unit) {
         viewModel.events.collect { event ->
             when (event) {
                 is UiEvent.ShowSnackbar -> {
-                    snackbarHostState.showSnackbar(event.message)
+                    snackbarHostState.showSnackbar(context.getString(event.messageId))
                 }
 
                 else -> {}
@@ -56,7 +57,9 @@ fun FavoriteScreen(
     }
 
     when (val state = uiState) {
-        is UiState.Loading -> { Loading() }
+        is UiState.Loading -> {
+            Loading()
+        }
 
         is UiState.Success -> {
             FavoriteScreenContent(
@@ -65,8 +68,7 @@ fun FavoriteScreen(
                 snackbarHostState = snackbarHostState,
                 onDeleteItem = viewModel::deleteFromFavorite,
                 onAddItemToFav = { navController.navigate(Route.MapRoute) },
-                onFavItemClick = { id -> navController.navigate(Route.HomeRoute(id)) }
-            )
+                onFavItemClick = { id -> navController.navigate(Route.HomeRoute(id)) })
         }
 
         else -> {}
@@ -101,7 +103,7 @@ private fun FavoriteScreenContent(
                     text = stringResource(R.string.favorites),
                     style = Theme.textStyle.title.lg,
                     color = Theme.color.text.primary,
-                    modifier = Modifier.padding(16.dp)
+                    modifier = Modifier.padding(16.dp),
                 )
 
                 if (favorites.isNotEmpty()) {
@@ -112,14 +114,12 @@ private fun FavoriteScreenContent(
                             FavoriteCard(
                                 item = favorites[index],
                                 onDismiss = { onDeleteItem(favorites[index].id) },
-                                modifier = Modifier.clickable { onFavItemClick(favorites[index].id) }
-                            )
+                                modifier = Modifier.clickable { onFavItemClick(favorites[index].id) })
                         }
                     }
                 } else {
                     EmptyState(
-                        iconId = R.drawable.heart,
-                        textId = R.string.no_favorite_yet
+                        iconId = R.drawable.heart, textId = R.string.no_favorite_yet
                     )
                 }
             }
@@ -132,7 +132,6 @@ private fun FavoriteScreenContent(
                 AppSnackbar(
                     message = snackbarData.visuals.message
                 )
-            }
-        )
+            })
     }
 }
