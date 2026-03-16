@@ -22,11 +22,11 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.weatherforecast.R
 import com.example.weatherforecast.data.remote.model.Address
+import com.example.weatherforecast.presentation.navigation.LocalNavController
 import com.example.weatherforecast.presentation.screen.map.composable.CityField
 import com.example.weatherforecast.presentation.screen.map.composable.ConfirmButton
-import com.example.weatherforecast.presentation.navigation.LocalNavController
-import com.example.weatherforecast.presentation.screen.shared.composable.AppSnackbar
 import com.example.weatherforecast.presentation.screen.shared.UiEvent
+import com.example.weatherforecast.presentation.screen.shared.composable.AppSnackbar
 import com.example.weatherforecast.presentation.utils.MapStyle
 import org.maplibre.compose.camera.CameraPosition
 import org.maplibre.compose.camera.CameraState
@@ -50,6 +50,7 @@ fun MapScreen(
     var selectedAddress by remember { mutableStateOf<Address?>(null) }
     val snackbarHostState = remember { SnackbarHostState() }
     val cameraState = rememberCameraState(firstPosition = CameraPosition())
+    val context = LocalNavController.current.context
 
     LaunchedEffect(coordinate) {
         cameraState.animateTo(
@@ -65,8 +66,7 @@ fun MapScreen(
         viewModel.events.collect { event ->
             when (event) {
                 is UiEvent.NavigateBack -> navController.navigateUp()
-                is UiEvent.ShowSnackbar -> { snackbarHostState.showSnackbar(event.message) }
-                else -> {}
+                is UiEvent.ShowSnackbar -> { snackbarHostState.showSnackbar(context.getString(event.messageId)) }
             }
         }
     }
@@ -85,7 +85,7 @@ fun MapScreen(
         selectedAddress = selectedAddress,
         onClickConfirm = {
             selectedPosition?.let { pos ->
-                viewModel.saveCityLocation(pos.latitude, pos.longitude)
+                viewModel.onSaveButtonClick(pos.latitude,pos.longitude)
             }
         }
     )
