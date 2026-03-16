@@ -24,6 +24,7 @@ fun SaveButton(
     reminderName: String,
     time: String,
     date: String,
+    languageCode: String,
     selectedReason: String,
     alertType: String,
     onErrorFound: (Boolean) -> Unit,
@@ -40,20 +41,13 @@ fun SaveButton(
             }
             onErrorFound(false)
 
-            val inMillis = TimeUtils.convertToMillis(date, time)
-            val finalCondition =
-                if (selectedReason == selectReason) "" else selectedReason
+            val inMillis = TimeUtils.convertToMillis(date, time, languageCode)
+            val finalCondition = if (selectedReason == selectReason) "" else selectedReason
 
-            if (alert == null)
-                onSave(
-                    reminderName,
-                    time,
-                    date,
-                    finalCondition,
-                    alertType,
-                    true
+            if (alert == null) onSave(
+                reminderName, time, date, finalCondition, alertType, true
 
-                )
+            )
             else onUpdate(
                 AlertModel(
                     id = alert.id,

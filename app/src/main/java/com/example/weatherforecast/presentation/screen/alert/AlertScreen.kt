@@ -23,7 +23,9 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.weatherforecast.R
+import com.example.weatherforecast.data.local.datastore.Language
 import com.example.weatherforecast.designsystem.theme.Theme
+import com.example.weatherforecast.presentation.navigation.LocalNavController
 import com.example.weatherforecast.presentation.screen.alert.composable.AlertCard
 import com.example.weatherforecast.presentation.screen.alert.composable.ReminderDialog
 import com.example.weatherforecast.presentation.screen.alert.model.AlertModel
@@ -40,12 +42,14 @@ fun AlertScreen(
 ) {
     val snackbarHostState = remember { SnackbarHostState() }
     val state by viewModel.uiState.collectAsStateWithLifecycle()
+    val language by viewModel.language.collectAsStateWithLifecycle()
+    val context = LocalNavController.current.context
 
     LaunchedEffect(Unit) {
         viewModel.events.collect { event ->
             when (event) {
                 is UiEvent.ShowSnackbar -> {
-                    snackbarHostState.showSnackbar(event.message)
+                    snackbarHostState.showSnackbar(context.getString(event.messageId))
                 }
 
                 else -> {}
@@ -58,6 +62,7 @@ fun AlertScreen(
         is UiState.Success -> {
             AlertScreenContent(
                 alerts = uiState.data,
+                language = language,
                 snackbarHostState = snackbarHostState,
                 onAddAlertClick = viewModel::addAlert,
                 onDeleteAlertClick = viewModel::deleteAlert,
@@ -74,6 +79,7 @@ fun AlertScreen(
 @Composable
 private fun AlertScreenContent(
     alerts: List<AlertModel>,
+    language: Language,
     snackbarHostState: SnackbarHostState,
     onDeleteAlertClick: (AlertModel) -> Unit,
     onCancelAlertClick: (Int) -> Unit,
@@ -85,6 +91,8 @@ private fun AlertScreenContent(
 
     var showDialog by remember { mutableStateOf(false) }
     var selectedAlert by remember { mutableStateOf<AlertModel?>(null) }
+
+
 
     Box(modifier = modifier.fillMaxSize()) {
         Scaffold(
@@ -112,9 +120,7 @@ private fun AlertScreenContent(
                         modifier = Modifier.padding(16.dp)
                     ) {
                         items(
-                            count = alerts.size,
-                            key = { index -> alerts[index].id }
-                        ) { index ->
+                            count = alerts.size, key = { index -> alerts[index].id }) { index ->
                             AlertCard(
                                 alert = alerts[index],
                                 onDismiss = { onDeleteAlertClick(alerts[index]) },
@@ -127,14 +133,12 @@ private fun AlertScreenContent(
                                 onCardClick = {
                                     selectedAlert = alerts[index]
                                     showDialog = true
-                                }
-                            )
+                                })
                         }
                     }
                 } else {
                     EmptyState(
-                        iconId = R.drawable.alert,
-                        textId = R.string.no_alerts_yet
+                        iconId = R.drawable.alert, textId = R.string.no_alerts_yet
                     )
                 }
             }
@@ -147,27 +151,22 @@ private fun AlertScreenContent(
                 AppSnackbar(
                     message = snackbarData.visuals.message
                 )
-            }
-        )
+            })
 
         if (showDialog) {
-            ReminderDialog(
-                alert = selectedAlert,
-                onDismiss = {
-                    showDialog = false
-                    selectedAlert = null
-                },
-                onSave = { name, time, date, condition, alertType, isEnable ->
-                    showDialog = false
-                    selectedAlert = null
-                    onAddAlertClick(name, time, date, condition, alertType, isEnable)
-                },
-                onUpdate = {
-                    showDialog = false
-                    onEditAlertClick(it)
-                    selectedAlert = null
-                }
-            )
+            ReminderDialog(alert = selectedAlert, languageCode = language.code, onDismiss = {
+                showDialog = false
+                selectedAlert = null
+            }, onSave = { name, time, date, condition, alertType, isEnable ->
+                showDialog = false
+                selectedAlert = null
+                onAddAlertClick(name, time, date, condition, alertType, isEnable)
+            }, onUpdate = {
+                showDialog = false
+                onEditAlertClick(it)
+                selectedAlert = null
+            })
         }
     }
+
 }

@@ -4,14 +4,14 @@ import com.example.weatherforecast.data.local.entity.Alert
 import com.example.weatherforecast.presentation.screen.alert.model.AlertModel
 import com.example.weatherforecast.presentation.utils.TimeUtils
 
-fun Alert.toUiModel() : AlertModel {
+fun Alert.toUiModel(languageCode : String) : AlertModel {
     return AlertModel(
         id = id,
         title = title,
-        formattedTime = TimeUtils.formatTime(time),
+        formattedTime = TimeUtils.formatTime(time,languageCode),
         type = type,
         condition = condition,
-        formattedDate = TimeUtils.formatDate(date),
+        formattedDate = TimeUtils.formatDate(date,languageCode),
         timeInMillis = time,
         dateInMillis = date,
         isEnable = isEnable
