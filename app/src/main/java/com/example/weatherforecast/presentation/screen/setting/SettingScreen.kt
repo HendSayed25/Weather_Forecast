@@ -6,10 +6,13 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.SnackbarHost
+import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
@@ -27,6 +30,7 @@ import com.example.weatherforecast.presentation.navigation.Route
 import com.example.weatherforecast.presentation.screen.setting.composables.LanguageSection
 import com.example.weatherforecast.presentation.screen.setting.composables.LocationCard
 import com.example.weatherforecast.presentation.screen.setting.composables.MeasurementCard
+import com.example.weatherforecast.presentation.screen.shared.composable.AppSnackbar
 import requestLocationPermissionWithSettingsRedirect
 
 @Composable
@@ -37,19 +41,26 @@ fun SettingScreen(
     val context = LocalContext.current
     val activity = context as? Activity ?: return
     val state by viewModel.uiState.collectAsStateWithLifecycle()
+    val snackbarHostState = remember { SnackbarHostState() }
 
     val requestLocationPermission = requestLocationPermissionWithSettingsRedirect(
-        onGranted = viewModel::getCurrentLocation,
-        activity = activity
+        onGranted = viewModel::getCurrentLocation, activity = activity
     )
 
     LaunchedEffect(Unit) {
         viewModel.events.collect { event ->
             when (event) {
-                is SettingsEvent.RequestLocationPermission -> { requestLocationPermission() }
-                is SettingsEvent.NavigateToMapScreen -> { navController.navigate(Route.MapRoute) }
+                is SettingsEvent.RequestLocationPermission -> {
+                    requestLocationPermission()
+                }
 
-                else -> {}
+                is SettingsEvent.NavigateToMapScreen -> {
+                    navController.navigate(Route.MapRoute)
+                }
+
+                is SettingsEvent.ShowSnackbar -> {
+                    snackbarHostState.showSnackbar(context.getString(event.messageId))
+                }
             }
         }
     }
@@ -62,7 +73,8 @@ fun SettingScreen(
         onSelectLanguage = viewModel::changeLanguage,
         tempUnit = state.temperatureUnit,
         windSpeedUnit = state.windUnit,
-        language = state.language
+        language = state.language,
+        snackbarHostState = snackbarHostState
     )
 
 }
@@ -77,9 +89,9 @@ private fun SettingScreenContent(
     windSpeedUnit: WindSpeedUnit,
     onSelectLanguage: (Language) -> Unit,
     language: Language,
+    snackbarHostState: SnackbarHostState,
     modifier: Modifier = Modifier
 ) {
-
     Column(
         modifier = modifier
             .background(Theme.color.background.screen)
@@ -122,6 +134,13 @@ private fun SettingScreenContent(
             language = language,
             onLanguageSelect = onSelectLanguage,
         )
+
+        SnackbarHost(
+            hostState = snackbarHostState, snackbar = { snackbarData ->
+                AppSnackbar(
+                    message = snackbarData.visuals.message
+                )
+            })
     }
 }
 

@@ -2,6 +2,7 @@ package com.example.weatherforecast.presentation.screen.setting
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.weatherforecast.R
 import com.example.weatherforecast.data.local.datastore.AppDataStore
 import com.example.weatherforecast.data.local.datastore.Language
 import com.example.weatherforecast.data.local.datastore.LocationType
@@ -43,7 +44,7 @@ class SettingViewModel @Inject constructor(
         viewModelScope.launch {
             locationRepository.getCurrentLocation(true)
                 .onSuccess { appDataStore.setLocation(it.lat, it.long) }
-                .onFailure { _events.emit(SettingsEvent.ShowSnackbar("Failed to get Your Location , Try Again")) }
+                .onFailure { _events.emit(SettingsEvent.ShowSnackbar(R.string.get_location_error)) }
         }
     }
 
