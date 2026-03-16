@@ -1,5 +1,6 @@
 package com.example.weatherforecast.presentation.screen.home
 
+import android.content.Context
 import androidx.annotation.StringRes
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
@@ -21,7 +22,9 @@ import com.example.weatherforecast.presentation.screen.home.mapper.toDaily
 import com.example.weatherforecast.presentation.screen.home.mapper.toHourly
 import com.example.weatherforecast.presentation.screen.home.mapper.toWeatherUiModel
 import com.example.weatherforecast.presentation.screen.shared.UiState
+import com.example.weatherforecast.presentation.utils.NetworkUtils
 import dagger.hilt.android.lifecycle.HiltViewModel
+import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.asStateFlow
@@ -35,6 +38,7 @@ class HomeViewModel @Inject constructor(
     private val locationRepository: LocationRepository,
     private val weatherRepository: WeatherRepository,
     private val appDataStore: AppDataStore,
+    @ApplicationContext private val context: Context,
     savedStateHandle: SavedStateHandle,
 ) : ViewModel() {
 
@@ -66,10 +70,14 @@ class HomeViewModel @Inject constructor(
 
 
     fun getLocation() {
-        if (locationId == null) {
-            getCurrentLocation()
-        } else {
-            getFavLocation()
+        if(!NetworkUtils.isInternetAvailable(context)){
+            _weatherUiState.update { HomeUiState.NoInternet }
+        }else{
+            if (locationId == null) {
+                getCurrentLocation()
+            } else {
+                getFavLocation()
+            }
         }
     }
 

@@ -67,6 +67,7 @@ fun MapScreen(
             when (event) {
                 is UiEvent.NavigateBack -> navController.navigateUp()
                 is UiEvent.ShowSnackbar -> { snackbarHostState.showSnackbar(context.getString(event.messageId)) }
+                else -> {}
             }
         }
     }

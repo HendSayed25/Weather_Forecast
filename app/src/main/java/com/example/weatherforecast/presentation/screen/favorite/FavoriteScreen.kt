@@ -50,6 +50,7 @@ fun FavoriteScreen(
                 is UiEvent.ShowSnackbar -> {
                     snackbarHostState.showSnackbar(context.getString(event.messageId))
                 }
+                is UiEvent.NavigateTo -> { navController.navigate(Route.MapRoute)  }
 
                 else -> {}
             }
@@ -67,7 +68,7 @@ fun FavoriteScreen(
                 favorites = state.data,
                 snackbarHostState = snackbarHostState,
                 onDeleteItem = viewModel::deleteFromFavorite,
-                onAddItemToFav = { navController.navigate(Route.MapRoute) },
+                onAddItemToFav = viewModel::onAddFavorite,
                 onFavItemClick = { id -> navController.navigate(Route.HomeRoute(id)) })
         }
 
