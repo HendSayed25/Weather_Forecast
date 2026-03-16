@@ -15,12 +15,18 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.weatherforecast.R
+import com.example.weatherforecast.data.local.datastore.Language
+import com.example.weatherforecast.data.local.datastore.TempUnit
 import com.example.weatherforecast.designsystem.theme.Theme
 import com.example.weatherforecast.presentation.screen.home.model.CurrentWeather
+import com.example.weatherforecast.presentation.utils.LanguageUtilUtils.formatNumberByLocale
+import com.example.weatherforecast.presentation.utils.LanguageUtilUtils.getTempWithLabel
 
 @Composable
 fun CurrentWeather(
     currentWeather: CurrentWeather,
+    language: Language,
+    tempUnit: TempUnit,
     isDay: Int,
 ) {
     Column(
@@ -32,31 +38,33 @@ fun CurrentWeather(
         Image(
             painter = painterResource(currentWeather.iconResId),
             contentDescription = "current weather icon",
-            modifier = Modifier
-                .size(width = 227.dp, height = 200.dp)
+            modifier = Modifier.size(width = 227.dp, height = 200.dp)
         )
         Spacer(modifier = Modifier.height(16.dp))
 
         WeatherDetails(
-            currentWeather = currentWeather,
-            isDay = isDay,
+            currentWeather = currentWeather, language = language, tempUnit = tempUnit, isDay = isDay
         )
     }
 }
-
 
 @Composable
 private fun WeatherDetails(
     modifier: Modifier = Modifier,
     currentWeather: CurrentWeather,
+    language: Language,
+    tempUnit: TempUnit,
     isDay: Int,
 ) {
     Column(
-        modifier = modifier,
-        horizontalAlignment = Alignment.CenterHorizontally
+        modifier = modifier, horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Text(
-            text = "${currentWeather.temperature} °C",
+            text = "${
+                formatNumberByLocale(
+                    currentWeather.temperature.toInt(), language.code
+                )
+            } ${getTempWithLabel(language, tempUnit)}",
             style = Theme.textStyle.title.xl,
             color = Theme.color.text.primary,
         )
@@ -69,7 +77,19 @@ private fun WeatherDetails(
 
         Spacer(Modifier.height(8.dp))
 
-        MinMaxDegree(currentWeather.maxTemp, currentWeather.minTemp, isDay)
+        MinMaxDegree(
+            maxTemp = "${
+                formatNumberByLocale(
+                    currentWeather.maxTemp, language.code
+                )
+            } ${getTempWithLabel(language, tempUnit)}",
+            minTemp = "${
+                formatNumberByLocale(
+                    currentWeather.minTemp, language.code
+                )
+            } ${getTempWithLabel(language, tempUnit)}",
+            isDay = isDay,
+        )
     }
 }
 
@@ -88,5 +108,7 @@ private fun CurrentWeatherPreview() {
     CurrentWeather(
         currentWeather = getFakeCurrentWeather(),
         isDay = 1,
+        language = Language.ENGLISH,
+        tempUnit = TempUnit.CELSIUS
     )
 }

@@ -17,10 +17,13 @@ class AppDataStore @Inject constructor(
         produceFile = { context.preferencesDataStoreFile("app_prefs") }
     )
 
-    val language: Flow<String> = dataStore.data.map { it[AppPreferences.LANGUAGE_KEY] ?: "en" }
+    val language: Flow<Language> = dataStore.data.map {
+        val name = it[AppPreferences.LANGUAGE_KEY]  ?: Language.ENGLISH.name
+        Language.valueOf(name)
+    }
 
-    suspend fun setLanguage(language: String) {
-        dataStore.edit { it[AppPreferences.LANGUAGE_KEY] = language }
+    suspend fun setLanguage(language: Language) {
+        dataStore.edit { it[AppPreferences.LANGUAGE_KEY] = language.name }
     }
 
     val location: Flow<Coordinate> = dataStore.data

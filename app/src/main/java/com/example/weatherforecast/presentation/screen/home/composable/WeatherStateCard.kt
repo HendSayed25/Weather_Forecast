@@ -19,20 +19,23 @@ import androidx.compose.ui.unit.dp
 import com.example.weatherforecast.R
 import com.example.weatherforecast.designsystem.theme.Theme
 import com.example.weatherforecast.presentation.screen.home.model.WeatherState
+import com.example.weatherforecast.presentation.utils.LanguageUtilUtils.formatNumberByLocale
 
 @Composable
 fun WeatherStateCard(
     modifier: Modifier = Modifier,
     weatherStateData: WeatherState,
+    languageCode : String
 ) {
-
     Card(
         modifier = modifier,
         colors = CardDefaults.cardColors(containerColor = Theme.color.background.card),
         border = BorderStroke(width = 0.5.dp, color = MaterialTheme.colorScheme.onBackground)
     ) {
         Column(
-            modifier = Modifier.fillMaxSize().padding(16.dp),
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(16.dp),
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center
         )
@@ -44,7 +47,7 @@ fun WeatherStateCard(
             )
 
             Text(
-                text = weatherStateData.value,
+                text = "${formatNumberByLocale(weatherStateData.value,languageCode)} ${weatherStateData.unit}",
                 style = Theme.textStyle.title.md,
                 color = Theme.color.text.primary,
                 modifier = Modifier.padding(bottom = 2.dp)
@@ -65,8 +68,10 @@ private fun Preview() {
     WeatherStateCard(
         weatherStateData = WeatherState(
             iconId = R.drawable.ic_uv_light,
-            value = "10 km",
-            state = "Visibility"
-        )
+            value = 10 ,
+            state = "Visibility",
+            unit = "km"
+        ),
+        languageCode = "en"
     )
 }

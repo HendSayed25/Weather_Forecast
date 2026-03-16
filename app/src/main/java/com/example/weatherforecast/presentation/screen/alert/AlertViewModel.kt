@@ -1,9 +1,10 @@
 package com.example.weatherforecast.presentation.screen.alert
 
-import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.weatherforecast.R
+import com.example.weatherforecast.data.local.datastore.AppDataStore
+import com.example.weatherforecast.data.local.datastore.Language
 import com.example.weatherforecast.data.local.entity.Alert
 import com.example.weatherforecast.data.repository.WeatherRepository
 import com.example.weatherforecast.presentation.screen.alert.mapper.toEntity
@@ -14,12 +15,13 @@ import com.example.weatherforecast.presentation.screen.shared.UiState
 import com.example.weatherforecast.presentation.utils.TimeUtils
 import com.example.weatherforecast.worker.AlertScheduler
 import dagger.hilt.android.lifecycle.HiltViewModel
-import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -27,7 +29,7 @@ import javax.inject.Inject
 class AlertViewModel @Inject constructor(
     private val weatherRepo: WeatherRepository,
     private val scheduler: AlertScheduler,
-    @ApplicationContext private val context: Context
+    appDataStore: AppDataStore
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow<UiState<List<AlertModel>>>(UiState.Loading)
@@ -36,6 +38,12 @@ class AlertViewModel @Inject constructor(
     private val _events = MutableSharedFlow<UiEvent>()
     val events = _events.asSharedFlow()
 
+    val language = appDataStore.language.stateIn(
+        scope = viewModelScope,
+        started = SharingStarted.WhileSubscribed(5000),
+        initialValue = Language.ENGLISH
+    )
+
     init {
         getAllAlerts()
     }
@@ -43,9 +51,9 @@ class AlertViewModel @Inject constructor(
     fun getAllAlerts() {
         viewModelScope.launch {
             weatherRepo.getAllAlerts()
-                .catch { _events.emit(UiEvent.ShowSnackbar(context.getString(R.string.something_wrong))) }
+                .catch { _events.emit(UiEvent.ShowSnackbar(R.string.something_wrong)) }
                 .collect { alerts ->
-                    _uiState.value = UiState.Success(alerts.map { it.toUiModel() })
+                    _uiState.value = UiState.Success(alerts.map { it.toUiModel(language.value.code) })
                 }
         }
     }
@@ -60,13 +68,12 @@ class AlertViewModel @Inject constructor(
     ) {
         viewModelScope.launch {
             try {
-                val timeMillis = TimeUtils.convertToMillis(date, time)
-                val finalCondition = if (condition == context.getString(R.string.condition_select_reason)) "" else condition
+                val timeMillis = TimeUtils.convertToMillis(date, time, language.value.code)
                 val alert = Alert(
                     title = title,
                     time = timeMillis,
                     date = timeMillis,
-                    condition = finalCondition,
+                    condition = condition,
                     type = type,
                     isEnable = isEnable
                 )
@@ -74,14 +81,14 @@ class AlertViewModel @Inject constructor(
                     title = title,
                     time = timeMillis,
                     date = timeMillis,
-                    condition = finalCondition,
+                    condition = condition,
                     type = type,
                     isEnable = isEnable
                 )
                 scheduler.scheduleAlert(alert.copy(id = id.toInt()))
-                _events.emit(UiEvent.ShowSnackbar(context.getString(R.string.add_success)))
+                _events.emit(UiEvent.ShowSnackbar(R.string.add_success))
             } catch (e: Exception) {
-                _events.emit(UiEvent.ShowSnackbar(context.getString(R.string.something_wrong)))
+                _events.emit(UiEvent.ShowSnackbar(R.string.something_wrong))
             }
         }
     }
@@ -92,9 +99,9 @@ class AlertViewModel @Inject constructor(
                 weatherRepo.updateAlert(alert.toEntity())
                 cancelAlert(alert.id)
                 scheduleAlert(alert)
-                _events.emit(UiEvent.ShowSnackbar(context.getString(R.string.update_success)))
+                _events.emit(UiEvent.ShowSnackbar(R.string.update_success))
             } catch (e: Exception) {
-                _events.emit(UiEvent.ShowSnackbar(context.getString(R.string.something_wrong)))
+                _events.emit(UiEvent.ShowSnackbar(R.string.something_wrong))
             }
         }
     }
@@ -103,9 +110,9 @@ class AlertViewModel @Inject constructor(
         viewModelScope.launch {
             try {
                 weatherRepo.deleteAlert(alert.toEntity())
-                _events.emit(UiEvent.ShowSnackbar(context.getString(R.string.deleted_success)))
+                _events.emit(UiEvent.ShowSnackbar(R.string.deleted_success))
             } catch (e: Exception) {
-                _events.emit(UiEvent.ShowSnackbar(context.getString(R.string.something_wrong)))
+                _events.emit(UiEvent.ShowSnackbar(R.string.something_wrong))
             }
         }
     }

@@ -23,12 +23,15 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import com.example.weatherforecast.R
 import com.example.weatherforecast.designsystem.theme.Theme
 import com.example.weatherforecast.presentation.screen.alert.model.AlertModel
+import com.example.weatherforecast.presentation.utils.TimeUtils.formatTimeForLanguage
+import com.example.weatherforecast.presentation.utils.TimeUtils.normalizeTime
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
@@ -37,15 +40,17 @@ import java.util.Locale
 @Composable
 fun ReminderDialog(
     alert: AlertModel?,
+    languageCode: String,
     onDismiss: () -> Unit,
     onSave: (name: String, time: String, date: String, condition: String, alertType: String, isEnable: Boolean) -> Unit,
     onUpdate: (AlertModel) -> Unit
 ) {
     var reminderName by remember { mutableStateOf(alert?.title ?: "") }
+    val context = LocalContext.current
     var time by remember { mutableStateOf(alert?.formattedTime ?: SimpleDateFormat("hh:mm a", Locale.getDefault()).format(Date())) }
     var date by remember { mutableStateOf(alert?.formattedDate ?: SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).format(Date())) }
     var alertType by remember { mutableStateOf(alert?.type ?: "alarm") }
-    var selectedReason by remember { mutableStateOf(alert?.condition?.ifEmpty { "Select Reason" } ?: "Select Reason") }
+    var selectedReason by remember { mutableStateOf(alert?.condition?.ifEmpty { context.getString(R.string.condition_select_reason) } ?: context.getString(R.string.condition_select_reason)) }
     var showTimePicker by remember { mutableStateOf(false) }
     var showDatePicker by remember { mutableStateOf(false) }
     var nameError by remember { mutableStateOf(false) }
@@ -159,10 +164,11 @@ fun ReminderDialog(
                     reminderName = reminderName,
                     time = time,
                     date = date,
-                    selectedReason = selectedReason,
+                    selectedReason = if(selectedReason == stringResource(R.string.condition_select_reason)) "" else selectedReason,
                     alertType = alertType,
                     onSave = onSave,
                     onUpdate = onUpdate,
+                    languageCode = languageCode,
                     onErrorFound = { nameError = it }
                 )
 
@@ -173,9 +179,9 @@ fun ReminderDialog(
 
                 if (showTimePicker) {
                     CustomTimePicker(
-                        initialTime = time,
+                        initialTime = normalizeTime(time),
                         onTimeSelected = {
-                            time = it
+                            time = formatTimeForLanguage(it, languageCode)
                         },
                         onDismiss = {
                             showTimePicker = false

@@ -24,8 +24,8 @@ import com.example.weatherforecast.designsystem.theme.Theme
 
 @Composable
 fun MinMaxDegree(
-    maxTemp: Int,
-    minTemp: Int,
+    maxTemp: String,
+    minTemp: String,
     isDay: Int,
     modifier: Modifier = Modifier,
     showBackGround: Boolean = true
@@ -42,7 +42,7 @@ fun MinMaxDegree(
             Row(verticalAlignment = Alignment.CenterVertically) {
                 CardContent(
                     painterResource(if (isDay == 1) R.drawable.ic_arrow_top_weather else R.drawable.ic_arrow_top_weather_dark),
-                    "$maxTemp °C",
+                    maxTemp,
                 )
             }
 
@@ -57,7 +57,7 @@ fun MinMaxDegree(
             Row(verticalAlignment = Alignment.CenterVertically) {
                 CardContent(
                     painterResource(if (isDay == 1) R.drawable.ic_arrow_down_weather else R.drawable.ic_arrow_down_weather_dark),
-                    "$minTemp °C"
+                    minTemp,
                 )
             }
         }
@@ -66,12 +66,10 @@ fun MinMaxDegree(
 
 @Composable
 private fun CardContent(
-    icon: Painter,
-    text: String
+    icon: Painter, text: String
 ) {
     Image(
-        painter = icon,
-        contentDescription = "arrow"
+        painter = icon, contentDescription = "arrow"
     )
 
     Text(
@@ -86,6 +84,6 @@ private fun CardContent(
 @Composable
 private fun MinMaxPreview() {
     MinMaxDegree(
-        20, 15, 1
+        "20", "15", 1,
     )
 }

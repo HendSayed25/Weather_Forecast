@@ -8,6 +8,6 @@ import com.example.weatherforecast.presentation.screen.home.model.WeatherStateUI
 
 sealed class HomeUiState {
     data class Success(val currentWeather: CurrentWeather, val weather : WeatherStateUIModel, val dailyForecastItems : List<DailyForecastItem>, val hourlyItems : List<HourlyItem>): HomeUiState()
-    data class Error(val msg : String) : HomeUiState()
+    data class Error(val msgId : Int) : HomeUiState()
     object Loading : HomeUiState()
 }
