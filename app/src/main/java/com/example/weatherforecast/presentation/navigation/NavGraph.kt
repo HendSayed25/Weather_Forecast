@@ -22,7 +22,6 @@ import com.example.weatherforecast.worker.Constants.ALERT_NAVIGATE_VALUE
 @Composable
 fun NavGraph(
     modifier: Modifier = Modifier,
-    locationGranted: Boolean,
     navigateTo: String? = null,
 ) {
     val navController = rememberNavController()
@@ -43,7 +42,7 @@ fun NavGraph(
                 modifier = modifier.padding(paddingValues)
             ) {
                 composable<Route.HomeRoute> {
-                    HomeScreen(locationGranted = locationGranted)
+                    HomeScreen()
                 }
 
                 composable<Route.MapRoute> {
