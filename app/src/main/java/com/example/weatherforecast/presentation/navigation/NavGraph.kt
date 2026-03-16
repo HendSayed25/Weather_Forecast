@@ -16,6 +16,7 @@ import com.example.weatherforecast.presentation.screen.alert.AlertScreen
 import com.example.weatherforecast.presentation.screen.favorite.FavoriteScreen
 import com.example.weatherforecast.presentation.screen.home.HomeScreen
 import com.example.weatherforecast.presentation.screen.map.MapScreen
+import com.example.weatherforecast.presentation.screen.setting.SettingScreen
 import com.example.weatherforecast.worker.Constants.ALERT_NAVIGATE_VALUE
 
 @Composable
@@ -55,6 +56,10 @@ fun NavGraph(
 
                 composable<Route.AlertRoute> {
                     AlertScreen()
+                }
+
+                composable <Route.SettingRoute>{
+                    SettingScreen()
                 }
             }
         }
