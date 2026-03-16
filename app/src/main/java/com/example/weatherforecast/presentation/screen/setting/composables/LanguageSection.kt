@@ -72,7 +72,7 @@ fun LanguageSection(
                 color = Theme.color.text.primary
             )
             Text(
-                text = language.label,
+                text = if(language == Language.ENGLISH) language.englishLabel else language.arabicLabel,
                 style = Theme.textStyle.title.sm,
                 color = Theme.color.text.secondary
             )
@@ -94,7 +94,7 @@ fun LanguageSection(
         ) {
             Language.entries.forEach { lang ->
                 DropdownMenuItem(
-                    text = { Text(lang.label) },
+                    text = { Text(if(language == Language.ENGLISH) lang.englishLabel else lang.arabicLabel )},
                     onClick = {
                         onLanguageSelect(lang)
                         expanded = false
