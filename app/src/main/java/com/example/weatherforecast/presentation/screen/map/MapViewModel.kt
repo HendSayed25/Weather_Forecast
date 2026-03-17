@@ -1,5 +1,6 @@
 package com.example.weatherforecast.presentation.screen.map
 
+import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.weatherforecast.R
@@ -24,8 +25,11 @@ import javax.inject.Inject
 class MapViewModel @Inject constructor(
     private val locationRepository: LocationRepository,
     private val weatherRepository: WeatherRepository,
+    private val savedStateHandle: SavedStateHandle,
     private val appDataStore: AppDataStore
 ) : ViewModel() {
+
+    private val isFromSetting = savedStateHandle.get<Boolean>("isFromSetting") ?: false
 
     val currentLocation = appDataStore.location.stateIn(
         scope = viewModelScope,
@@ -39,7 +43,9 @@ class MapViewModel @Inject constructor(
 
     fun onSaveButtonClick(lat: Double, long: Double) {
         viewModelScope.launch {
-            if (appDataStore.locationType.first() == LocationType.MAP) appDataStore.setLocation(lat, long)
+            if (appDataStore.locationType.first() == LocationType.MAP){
+                if(isFromSetting) appDataStore.setLocation(lat, long)
+            }
             else addToFav(
                 lat = lat,
                 long = long,

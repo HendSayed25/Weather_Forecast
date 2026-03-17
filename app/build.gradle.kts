@@ -103,6 +103,20 @@ dependencies {
     implementation(libs.androidx.hilt.work)
     ksp(libs.androidx.hilt.compiler)
 
+    //splash api
+    implementation(libs.androidx.core.splashscreen)
+
+    //test
+    testImplementation(libs.junit)
+    testImplementation(libs.mockk)
+    testImplementation(libs.kotlinx.coroutines.test)
+    testImplementation(libs.androidx.core.testing)
+
+    androidTestImplementation(libs.androidx.junit.v115)
+    androidTestImplementation(libs.core.ktx)
+    androidTestImplementation(libs.kotlinx.coroutines.test.v180)
+    androidTestImplementation(libs.androidx.core.testing)
+
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)

@@ -7,7 +7,7 @@ sealed interface Route {
     @Serializable
     data class HomeRoute(val locationId : Int? = null) : Route
     @Serializable
-    object MapRoute : Route
+    data class MapRoute(val isFromSetting : Boolean = false) : Route
     @Serializable
     object FavoriteRoute : Route
     @Serializable

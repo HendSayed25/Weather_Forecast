@@ -18,7 +18,7 @@
     <string name="alerts">Alerts</string>
     <string name="alert_settings">Alert Settings</string>
     <string name="alert_name">Alert Name</string>
-    <string name="name_example">"Example: Take medicine</string>
+    <string name="name_example">"Example: Check weather state</string>
     <string name="repeat">Repeat</string>
     <string name="once">Once</string>
     <string name="daily">Daily</string>
@@ -44,7 +44,7 @@
     <string name="condition_select_reason">Select Reason</string>
     <string name="condition_clouds">Clouds</string>
     <string name="condition_scattered_clouds">Scattered Clouds</string>
-    <string name="condition_clear">Clear</string>
+    <string name="condition_clear">Clear Sky</string>
     <string name="condition_rain">Rain</string>
     <string name="condition_snow">Snow</string>
     <string name="condition_sand">Sand</string>

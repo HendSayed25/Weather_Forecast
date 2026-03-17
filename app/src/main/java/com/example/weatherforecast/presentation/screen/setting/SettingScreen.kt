@@ -57,7 +57,7 @@ fun SettingScreen(
                 }
 
                 is SettingsEvent.NavigateToMapScreen -> {
-                    navController.navigate(Route.MapRoute)
+                    navController.navigate(Route.MapRoute(true))
                 }
 
                 is SettingsEvent.ShowSnackbar -> {
