@@ -19,7 +19,7 @@
     <string name="alerts">التنبيهات</string>
     <string name="alert_settings">إعدادات التنبيه</string>
     <string name="alert_name">اسم التنبيه</string>
-    <string name="name_example">مثال: تناول الدواء</string>
+    <string name="name_example">مثال: اطلع على حالة الطقس</string>
     <string name="repeat">تكرار</string>
     <string name="once">مرة واحدة</string>
     <string name="daily">يوميًا</string>
@@ -45,7 +45,7 @@
     <string name="condition_select_reason">اختر السبب</string>
     <string name="condition_clouds">غيوم</string>
     <string name="condition_scattered_clouds">غيوم متناثرة</string>
-    <string name="condition_clear">صافى</string>
+    <string name="condition_clear">سماء صافية</string>
     <string name="condition_rain">مطر</string>
     <string name="condition_snow">ثلج</string>
     <string name="condition_sand">رمل</string>
