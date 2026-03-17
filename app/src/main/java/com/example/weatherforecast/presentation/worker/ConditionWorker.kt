@@ -1,4 +1,4 @@
-package com.example.weatherforecast.worker
+package com.example.weatherforecast.presentation.worker
 
 import android.content.Context
 import android.os.Build
@@ -10,14 +10,14 @@ import com.example.weatherforecast.data.local.datastore.AppDataStore
 import com.example.weatherforecast.data.remote.response.WeatherResponse
 import com.example.weatherforecast.data.repository.WeatherRepository
 import com.example.weatherforecast.presentation.utils.AlertType
-import com.example.weatherforecast.worker.Constants.ALERT_CONDITION_KEY
-import com.example.weatherforecast.worker.Constants.ALERT_ID_KEY
-import com.example.weatherforecast.worker.Constants.ALERT_MESSAGE_KEY
-import com.example.weatherforecast.worker.Constants.ALERT_MESSAGE_KEY_DEFAULT_VALUE
-import com.example.weatherforecast.worker.Constants.ALERT_TITLE_KEY
-import com.example.weatherforecast.worker.Constants.ALERT_TITLE_KEY_DEFAULT_VALUE
-import com.example.weatherforecast.worker.Constants.ALERT_TYPE_KEY
-import com.example.weatherforecast.worker.Constants.ALERT_TYPE_KEY_DEFAULT_VALUE
+import com.example.weatherforecast.presentation.worker.Constants.ALERT_CONDITION_KEY
+import com.example.weatherforecast.presentation.worker.Constants.ALERT_ID_KEY
+import com.example.weatherforecast.presentation.worker.Constants.ALERT_MESSAGE_KEY
+import com.example.weatherforecast.presentation.worker.Constants.ALERT_MESSAGE_KEY_DEFAULT_VALUE
+import com.example.weatherforecast.presentation.worker.Constants.ALERT_TITLE_KEY
+import com.example.weatherforecast.presentation.worker.Constants.ALERT_TITLE_KEY_DEFAULT_VALUE
+import com.example.weatherforecast.presentation.worker.Constants.ALERT_TYPE_KEY
+import com.example.weatherforecast.presentation.worker.Constants.ALERT_TYPE_KEY_DEFAULT_VALUE
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedInject
 import kotlinx.coroutines.flow.first

@@ -1,4 +1,4 @@
-package com.example.weatherforecast.worker
+package com.example.weatherforecast.presentation.worker
 
 object Constants {
     const val ALARM_CHANNEL_ID = "ALARM_CHANNEL"

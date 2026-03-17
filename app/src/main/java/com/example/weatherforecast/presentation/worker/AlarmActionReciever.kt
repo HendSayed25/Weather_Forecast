@@ -1,4 +1,4 @@
-package com.example.weatherforecast.worker
+package com.example.weatherforecast.presentation.worker
 
 import android.app.NotificationManager
 import android.content.BroadcastReceiver
@@ -7,13 +7,13 @@ import android.content.Intent
 import android.os.Build
 import androidx.annotation.RequiresApi
 import com.example.weatherforecast.presentation.utils.AlertType
-import com.example.weatherforecast.worker.Constants.ALERT_ID_KEY
-import com.example.weatherforecast.worker.Constants.ALERT_MESSAGE_KEY
-import com.example.weatherforecast.worker.Constants.ALERT_MESSAGE_KEY_DEFAULT_VALUE
-import com.example.weatherforecast.worker.Constants.ALERT_TITLE_KEY
-import com.example.weatherforecast.worker.Constants.ALERT_TITLE_KEY_DEFAULT_VALUE
-import com.example.weatherforecast.worker.Constants.ALERT_TYPE_KEY
-import com.example.weatherforecast.worker.Constants.ALERT_TYPE_KEY_DEFAULT_VALUE
+import com.example.weatherforecast.presentation.worker.Constants.ALERT_ID_KEY
+import com.example.weatherforecast.presentation.worker.Constants.ALERT_MESSAGE_KEY
+import com.example.weatherforecast.presentation.worker.Constants.ALERT_MESSAGE_KEY_DEFAULT_VALUE
+import com.example.weatherforecast.presentation.worker.Constants.ALERT_TITLE_KEY
+import com.example.weatherforecast.presentation.worker.Constants.ALERT_TITLE_KEY_DEFAULT_VALUE
+import com.example.weatherforecast.presentation.worker.Constants.ALERT_TYPE_KEY
+import com.example.weatherforecast.presentation.worker.Constants.ALERT_TYPE_KEY_DEFAULT_VALUE
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 

@@ -1,4 +1,4 @@
-package com.example.weatherforecast.worker
+package com.example.weatherforecast.presentation.worker
 
 import android.app.AlarmManager
 import android.app.PendingIntent
@@ -12,11 +12,11 @@ import androidx.work.WorkManager
 import com.example.weatherforecast.R
 import com.example.weatherforecast.data.local.entity.Alert
 import com.example.weatherforecast.presentation.utils.AlertType
-import com.example.weatherforecast.worker.Constants.ALERT_CONDITION_KEY
-import com.example.weatherforecast.worker.Constants.ALERT_ID_KEY
-import com.example.weatherforecast.worker.Constants.ALERT_MESSAGE_KEY
-import com.example.weatherforecast.worker.Constants.ALERT_TITLE_KEY
-import com.example.weatherforecast.worker.Constants.ALERT_TYPE_KEY
+import com.example.weatherforecast.presentation.worker.Constants.ALERT_CONDITION_KEY
+import com.example.weatherforecast.presentation.worker.Constants.ALERT_ID_KEY
+import com.example.weatherforecast.presentation.worker.Constants.ALERT_MESSAGE_KEY
+import com.example.weatherforecast.presentation.worker.Constants.ALERT_TITLE_KEY
+import com.example.weatherforecast.presentation.worker.Constants.ALERT_TYPE_KEY
 import dagger.hilt.android.qualifiers.ApplicationContext
 import java.util.Calendar
 import java.util.concurrent.TimeUnit

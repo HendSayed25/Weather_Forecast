@@ -34,7 +34,7 @@
         </activity>
 
         <receiver
-            android:name=".worker.AlarmActionReceiver"
+            android:name=".presentation.worker.AlarmActionReceiver"
             android:exported="false"/>
 
         <provider
