@@ -29,8 +29,8 @@ class AppDataStore @Inject constructor(
     val location: Flow<Coordinate> = dataStore.data
         .map { prefs ->
             Coordinate(
-                lat = prefs[AppPreferences.LOCATION_LAT_KEY] ?: 21.422525,
-                long = prefs[AppPreferences.LOCATION_LNG_KEY] ?: 39.826181
+                lat = prefs[AppPreferences.LOCATION_LAT_KEY] ?: 0.0,
+                long = prefs[AppPreferences.LOCATION_LNG_KEY] ?: 0.0
             )
         }
 

@@ -1,5 +1,6 @@
 package com.example.weatherforecast.presentation.screen.map
 
+import androidx.lifecycle.SavedStateHandle
 import com.example.weatherforecast.R
 import com.example.weatherforecast.data.local.datastore.AppDataStore
 import com.example.weatherforecast.data.local.datastore.LocationType
@@ -41,10 +42,11 @@ class MapViewModelTest {
         locationRepository = mockk()
         weatherRepository = mockk()
         appDataStore = mockk()
+        val savedStateHandle = SavedStateHandle(mapOf("isFromSetting" to true))
 
         coEvery { appDataStore.location } returns flowOf(Coordinate(21.422525, 39.826181))
 
-        viewModel = MapViewModel(locationRepository, weatherRepository, appDataStore)
+        viewModel = MapViewModel(locationRepository, weatherRepository, savedStateHandle,appDataStore)
     }
 
     @After
