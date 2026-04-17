@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
@@ -50,7 +51,10 @@ fun FavoriteScreen(
                 is UiEvent.ShowSnackbar -> {
                     snackbarHostState.showSnackbar(context.getString(event.messageId))
                 }
-                is UiEvent.NavigateTo -> { navController.navigate(Route.MapRoute(false))  }
+
+                is UiEvent.NavigateTo -> {
+                    navController.navigate(Route.MapRoute(false))
+                }
 
                 else -> {}
             }
@@ -111,11 +115,11 @@ private fun FavoriteScreenContent(
                     LazyColumn(
                         modifier = Modifier.padding(16.dp)
                     ) {
-                        items(count = favorites.size) { index ->
+                        items(items = favorites, key = { it.id }) { item ->
                             FavoriteCard(
-                                item = favorites[index],
-                                onDismiss = { onDeleteItem(favorites[index].id) },
-                                modifier = Modifier.clickable { onFavItemClick(favorites[index].id) })
+                                item = item,
+                                onDismiss = { onDeleteItem(item.id) },
+                                modifier = Modifier.clickable { onFavItemClick(item.id) })
                         }
                     }
                 } else {

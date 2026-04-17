@@ -1,6 +1,7 @@
 package com.example.weatherforecast.presentation.screen.map
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.offset
@@ -22,6 +23,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.weatherforecast.R
 import com.example.weatherforecast.data.remote.model.Address
+import com.example.weatherforecast.designsystem.theme.Theme
 import com.example.weatherforecast.presentation.navigation.LocalNavController
 import com.example.weatherforecast.presentation.screen.map.composable.CityField
 import com.example.weatherforecast.presentation.screen.map.composable.ConfirmButton
@@ -103,7 +105,7 @@ private fun MapScreenContent(
     modifier: Modifier = Modifier
 ) {
     Box(
-        modifier = modifier.fillMaxSize()
+        modifier = modifier.fillMaxSize().background(Theme.color.background.screen)
     ) {
         MaplibreMap(
             cameraState = cameraState,
