@@ -60,11 +60,9 @@ Alert settings include:
 Alerts can be triggered for conditions such as:
 
 * Rain
-* Snow
-* Fog
-* Strong wind
-* Very high temperature
-* Very low temperature
+* Clouds
+* Scattered clouds
+* Clear Sky
 
 ---
 
@@ -104,7 +102,6 @@ The project follows **MVVM (Model – View – ViewModel)** architecture to main
 **UI Layer**
 
 * Built using Jetpack Compose
-* State-driven UI
 
 **ViewModel Layer**
 
