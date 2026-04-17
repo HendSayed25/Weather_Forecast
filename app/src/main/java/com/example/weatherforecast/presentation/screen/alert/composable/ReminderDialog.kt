@@ -64,14 +64,6 @@ fun ReminderDialog(
             Column(
                 modifier = Modifier.padding(20.dp)
             ) {
-
-                Text(
-                    text = stringResource(R.string.alert_settings),
-                    style = Theme.textStyle.title.md,
-                    color = Theme.color.text.primary,
-                    modifier = Modifier.padding(bottom = 16.dp)
-                )
-
                 Text(
                     text = stringResource(R.string.alert_name),
                     style = Theme.textStyle.title.md,
@@ -88,7 +80,7 @@ fun ReminderDialog(
                     isError = nameError,
                     colors = OutlinedTextFieldDefaults.colors(
                         focusedBorderColor = Theme.color.background.screen,
-                        unfocusedBorderColor = Theme.color.text.primary.copy(alpha = 0.5f),
+                        unfocusedBorderColor = Theme.color.background.screen,
                         cursorColor = Theme.color.background.screen,
                         focusedLabelColor = Theme.color.background.screen,
                         unfocusedLabelColor = Theme.color.text.primary,
@@ -110,7 +102,7 @@ fun ReminderDialog(
                     text = stringResource(R.string.time),
                     style = Theme.textStyle.title.md,
                     color = Theme.color.text.primary,
-                    modifier = Modifier.padding(top = 16.dp)
+                    modifier = Modifier.padding(bottom = 12.dp)
                 )
 
                 Row {
@@ -137,7 +129,7 @@ fun ReminderDialog(
                     text = stringResource(R.string.alert_type),
                     style = Theme.textStyle.title.md,
                     color = Theme.color.text.primary,
-                    modifier = Modifier.padding(top = 16.dp)
+                    modifier = Modifier.padding(top = 16.dp, bottom = 12.dp)
                 )
 
                 AlertTypeSection(
@@ -149,7 +141,7 @@ fun ReminderDialog(
                     text = stringResource(R.string.custom_condition),
                     style = Theme.textStyle.title.md,
                     color = Theme.color.text.primary,
-                    modifier = Modifier.padding(top = 16.dp, bottom = 8.dp)
+                    modifier = Modifier.padding(top = 16.dp, bottom = 12.dp)
                 )
 
                 ConditionDropdown(

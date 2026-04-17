@@ -2,6 +2,7 @@ package com.example.weatherforecast.presentation.screen.alert.composable
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.DateRange
 import androidx.compose.material3.Icon
@@ -33,7 +34,8 @@ fun CustomTextField(
             color = Theme.color.text.primary
         ),
         modifier = modifier,
-        colors = OutlinedTextFieldDefaults.colors(
+        shape = RoundedCornerShape(12.dp),
+                colors = OutlinedTextFieldDefaults.colors(
             focusedTextColor = Theme.color.text.primary,
             unfocusedTextColor = Theme.color.text.primary,
             focusedBorderColor = Theme.color.background.screen,
@@ -43,6 +45,7 @@ fun CustomTextField(
             Icon(
                 imageVector = icon,
                 contentDescription = null,
+                tint = Theme.color.background.screen,
                 modifier = Modifier
                     .size(20.dp)
                     .clickable { onIconClick() }

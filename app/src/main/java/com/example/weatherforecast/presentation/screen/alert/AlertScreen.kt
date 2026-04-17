@@ -168,5 +168,4 @@ private fun AlertScreenContent(
             })
         }
     }
-
 }
