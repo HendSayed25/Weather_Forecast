@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material3.DropdownMenu
@@ -48,9 +49,9 @@ fun ConditionDropdown(
             modifier = Modifier
                 .fillMaxWidth()
                 .clickable { dropdownExpanded = true }
-                .border(color = Theme.color.background.screen, width = 0.5.dp),
+                .border(color = Theme.color.background.screen, shape = RoundedCornerShape( 12.dp), width = 1.dp),
             trailingIcon = {
-                Icon(imageVector = Icons.Default.Edit, contentDescription = null)
+                Icon(imageVector = Icons.Default.Edit, contentDescription = null, tint = Theme.color.background.screen)
             }
         )
 
