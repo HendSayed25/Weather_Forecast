@@ -56,6 +56,7 @@ Alert settings include:
     * Notification
     * Alarm sound
 * Option to stop or disable alerts
+*  Alerts are automatically restored after device reboot using BootReceiver
 
 Alerts can be triggered for conditions such as:
 
@@ -135,6 +136,19 @@ The project follows **MVVM (Model – View – ViewModel)** architecture to main
 
 ---
 
+# 🚀 CI/CD Pipeline
+
+The project includes a basic CI/CD setup to improve code quality and automate builds:
+
+🔧 Continuous Integration
+- Automatically builds the project on every push / pull request
+- Runs Gradle build checks
+- Executes unit tests
+- Ensures code quality and stability
+
+---
+
+
 # 🌐 Weather API :
 
 Weather data is retrieved using the OpenWeatherMap API:
@@ -149,4 +163,3 @@ The API provides:
 
 # Map Library :
 https://maplibre.org/maplibre-compose/getting-started/
-
